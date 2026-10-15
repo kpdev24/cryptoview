@@ -498,6 +498,19 @@ img,canvas,svg{max-width:100%}
 }
 @media (min-width:861px) and (max-width:1280px){.tabs button .tl-long{display:none}.tabs button{padding:8px 10px}.status small{display:none}#btnNotif span{display:none}.brand b{font-size:14px}}
 @media (min-width:861px) and (max-width:1020px){.status{max-width:170px;overflow:hidden}#stText{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+
+/* v10: login */
+.login{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(900px 500px at 50% -10%,#1c2433,transparent),#0b0e13}
+.login.hide{display:none}
+.login-box{width:100%;max-width:360px;background:var(--panel);border:1px solid var(--line2);border-radius:18px;padding:28px 24px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.login-box h2{margin:0 0 4px;font-size:20px}
+.login .pw{display:flex;gap:6px}.login .pw .inp{flex:1;font-size:16px;padding:11px 12px;text-align:center;letter-spacing:2px}
+.login .pw .ib{width:44px;height:auto}
+.login .chk{justify-content:center}
+.login-err{min-height:18px;color:var(--down);font-size:12.5px}
+.login-box.shake{animation:shk .35s}
+@keyframes shk{25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-4px)}}
+body.locked{overflow:hidden}
 </style>
 </head>
 <body>
@@ -513,7 +526,7 @@ img,canvas,svg{max-width:100%}
   </nav>
   <span class="sp"></span>
   <div class="status" id="status" title="ดูรายละเอียดการเชื่อมต่อ"><i class="dot" id="stDot"></i><span id="stText">กำลังเชื่อมต่อ…</span><small id="stAge"></small></div>
-  <button class="pill" id="btnNotif">🔔 <span>เปิดแจ้งเตือน</span></button>
+  <button class="pill" id="btnLogout" title="ออกจากระบบ">⎋ <span class="desk-only">ออก</span></button><button class="pill" id="btnNotif">🔔 <span>เปิดแจ้งเตือน</span></button>
 </header>
 
 <div class="banner warn hidden" id="bnDemo">⚠️ <span><b>โหมดสาธิต</b> — เชื่อมต่อ Binance ไม่ได้ ตัวเลขเป็นราคาจำลอง ระบบจะลองเชื่อมต่อใหม่ทุก 1 นาที</span><button class="btn sm" data-retry>ลองเชื่อมต่อใหม่</button></div>
@@ -690,7 +703,15 @@ img,canvas,svg{max-width:100%}
   </section>
 </main>
 
-<footer>© 2026 Power By น.ส.กันธิมา พุ่มเพ็ชร์ นักทรัพยากรบุคคลชำนาญการ</footer>
+<div id="login" class="login"><form class="login-box" id="loginForm" autocomplete="off">
+  <div class="logo" style="width:52px;height:52px;font-size:26px;margin:0 auto 12px">◈</div>
+  <h2>Crypto Radar TH</h2><p class="muted" style="margin:0 0 18px;font-size:13px">กรอกรหัสผ่านเพื่อเข้าใช้งาน</p>
+  <div class="pw"><input class="inp" id="loginPw" type="password" inputmode="numeric" placeholder="รหัสผ่าน" autocomplete="current-password"><button type="button" class="ib" id="pwEye" aria-label="แสดงรหัส">👁</button></div>
+  <label class="chk" style="margin:12px 0 4px"><input type="checkbox" id="loginRem" checked> จดจำการเข้าสู่ระบบในเครื่องนี้</label>
+  <div class="login-err" id="loginErr"></div>
+  <button class="btn primary" style="width:100%;padding:11px;font-size:15px;margin-top:6px">เข้าสู่ระบบ</button>
+  <p class="dim" style="font-size:11.5px;margin:14px 0 0">Crypto Radar TH © 2026 Power By KPDev</p></form></div>
+<footer>Crypto Radar TH © 2026 Power By KPDev</footer>
 <div id="toasts"></div>
 <script type="text/plain" id="gasSrc">
 /** Crypto Radar TH — Google Apps Script backend v3
@@ -894,7 +915,7 @@ function testNews() {
 <script>
 'use strict';
 /* =====================================================================
-   Crypto Radar TH v9 — ไฟล์เดียว ไม่พึ่ง CDN (กราฟ + ข่าว + Backtest)
+   Crypto Radar TH v10 — ไฟล์เดียว ไม่พึ่ง CDN (กราฟ + ข่าว + Backtest)
    ข้อมูล: Binance TH REST (api.binance.th) + WebSocket (nbstream.binance.th)
    สำรอง: GAS proxy → Binance Global → โหมดสาธิต
    ===================================================================== */
@@ -2004,7 +2025,31 @@ async function init(){
   loadNews();loadFng();setInterval(()=>loadNews(),5*60e3);setInterval(loadFng,30*60e3);
   setTimeout(()=>{if(!S.scanning&&S.mode)runScan({auto:true,tf:'4h',n:40})},5000);
 }
-init();
+/* ---------- เข้าสู่ระบบ ---------- */
+const PW_HASH='de234c3abb3bce88553497b63ca86484593dd50c6392684e30ee7ad50f2359ac',PW_SALT='crt-salt-v1:';
+function sha256hex(str){ // ใช้ได้ทั้งเปิดไฟล์ในเครื่อง/http/https
+  const b=new TextEncoder().encode(str),K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+  const l=b.length,n=((l+9+63)>>6)<<6,m=new Uint8Array(n);m.set(b);m[l]=0x80;const dv=new DataView(m.buffer);dv.setUint32(n-4,l*8>>>0);dv.setUint32(n-8,Math.floor(l/0x20000000));
+  let H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];const w=new Uint32Array(64),r=(x,k)=>(x>>>k)|(x<<(32-k));
+  for(let o=0;o<n;o+=64){for(let i=0;i<16;i++)w[i]=dv.getUint32(o+i*4);for(let i=16;i<64;i++){const s0=r(w[i-15],7)^r(w[i-15],18)^(w[i-15]>>>3),s1=r(w[i-2],17)^r(w[i-2],19)^(w[i-2]>>>10);w[i]=(w[i-16]+s0+w[i-7]+s1)>>>0}
+    let[a,b2,c,d,e,f,g,h]=H;for(let i=0;i<64;i++){const t1=(h+(r(e,6)^r(e,11)^r(e,25))+((e&f)^(~e&g))+K[i]+w[i])>>>0,t2=((r(a,2)^r(a,13)^r(a,22))+((a&b2)^(a&c)^(b2&c)))>>>0;h=g;g=f;f=e;e=(d+t1)>>>0;d=c;c=b2;b2=a;a=(t1+t2)>>>0}
+    H=H.map((x,i)=>(x+[a,b2,c,d,e,f,g,h][i])>>>0)}
+  return H.map(x=>x.toString(16).padStart(8,'0')).join('')}
+const authOK=()=>{try{return localStorage.getItem('crt2_auth')===PW_HASH||sessionStorage.getItem('crt2_auth')===PW_HASH}catch(e){return false}};
+let started=false;
+function unlock(){$('#login').classList.add('hide');document.body.classList.remove('locked');if(!started){started=true;init()}}
+function gate(){
+  $('#btnLogout').addEventListener('click',()=>{if(!confirm('ออกจากระบบ?'))return;try{localStorage.removeItem('crt2_auth');sessionStorage.removeItem('crt2_auth')}catch(e){}location.reload()});
+  $('#pwEye').addEventListener('click',()=>{const i=$('#loginPw');i.type=i.type==='password'?'text':'password'});
+  let fails=0,lockUntil=0;
+  $('#loginForm').addEventListener('submit',e=>{e.preventDefault();const box=$('.login-box'),err=$('#loginErr');
+    if(Date.now()<lockUntil){err.textContent=`ลองผิดหลายครั้ง รออีก ${Math.ceil((lockUntil-Date.now())/1000)} วินาที`;return}
+    const v=$('#loginPw').value.trim();
+    if(sha256hex(PW_SALT+v)===PW_HASH){try{($('#loginRem').checked?localStorage:sessionStorage).setItem('crt2_auth',PW_HASH)}catch(e){}err.textContent='';$('#loginPw').value='';unlock()}
+    else{fails++;if(fails>=5){lockUntil=Date.now()+30000;fails=0}err.textContent='รหัสผ่านไม่ถูกต้อง';box.classList.remove('shake');void box.offsetWidth;box.classList.add('shake');$('#loginPw').select()}});
+  if(authOK())unlock();else{document.body.classList.add('locked');setTimeout(()=>$('#loginPw').focus(),100)}
+}
+gate();
 </script>
 </body>
 </html>
