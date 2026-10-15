@@ -389,6 +389,61 @@ footer{text-align:center;color:var(--dim);font-size:12px;padding:14px 10px 18px;
   #scanTf,#scanN{flex:1}#btnScan{flex:1 1 100%}
   #page-market>.toolbar .sp{display:none}
 }
+
+/* ================= v7: การแสดงผลเหรียญไม่ล้นจอ ================= */
+.wl-n{min-width:0}.wl-n b{overflow:hidden;text-overflow:ellipsis}
+.wl-p{white-space:nowrap}
+.ph .px{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.pf{white-space:normal;line-height:1.5}
+.sym,.side .big{overflow-wrap:anywhere}
+.side .big{font-size:clamp(19px,5.2vw,25px)}
+.coin{min-width:0}
+@media (max-width:860px){
+  /* การ์ดเหรียญด่วน: ตาราง 3 คอลัมน์ ไม่ต้องปัดข้าง */
+  .qchips{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;overflow:visible;margin:0 0 10px;padding:0}
+  .qc{min-width:0;padding:7px 9px;border-radius:10px}
+  .qc b{font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .qc .q{display:none}
+  .qc .p{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .qc br{display:none}
+  .qc .c{display:block;font-size:11px}
+  .qc.more{display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:12.5px}
+  /* หัวจอกราฟ: ชื่อเหรียญ + ราคา + % บรรทัดเดียว (กรอบเวลาใช้แถบด้านบน) */
+  .ph{flex-wrap:nowrap;padding:8px 10px}
+  .ph .tfs{display:none}
+  .ph .sym-name{display:inline!important;font-weight:700;font-size:14px;white-space:nowrap}
+  .ph .chg{display:inline!important;font-size:12px;white-space:nowrap}
+  .ph .px{font-size:15px;flex:1 1 auto;text-align:right}
+  .ph .tb{order:5}
+  .pf{font-size:11.5px;padding:6px 10px}
+  /* การ์ดตลาด */
+  #mkTable tr{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr)}
+  #mkTable td{overflow:hidden;text-overflow:ellipsis}
+  #mkTable td:nth-child(2){font-size:13.5px}
+  .coin b{white-space:nowrap}
+  .spk-i{min-width:0;flex:0 0 72%}
+  .side .lv .p{font-size:12.5px}
+  .kv dd{overflow-wrap:anywhere}
+}
+@media (max-width:360px){.qchips{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* v8: ช่องค้นหาเหรียญหน้าแรก */
+.qs{position:relative;display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:0 10px 0 14px;margin-bottom:10px;transition:border-color .15s}
+.qs:focus-within{border-color:var(--gold);box-shadow:0 0 0 3px rgba(231,181,76,.12)}
+.qs-i{color:var(--muted)}
+#qsIn{flex:1;min-width:0;background:none;border:0;outline:none;padding:11px 0;font-size:15px;color:var(--text)}
+.qs-x{background:none;border:0;color:var(--dim);font-size:14px;padding:6px;display:none}
+.qs.has .qs-x{display:block}
+.qs-dd{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:45;background:var(--panel2);border:1px solid var(--line2);border-radius:12px;box-shadow:0 14px 34px rgba(0,0,0,.5);overflow:hidden;display:none;max-height:min(60vh,420px);overflow-y:auto}
+.qs.open .qs-dd{display:block}
+.qs-r{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 12px;cursor:pointer;border-bottom:1px solid #222a36}
+.qs-r:last-child{border-bottom:0}
+.qs-r:hover,.qs-r.sel{background:#232b38}
+.qs-r .nm b{font-size:14px}.qs-r .nm small{color:var(--dim);font-size:11.5px;display:block}
+.qs-r .pr{text-align:right;font-family:var(--mono);font-size:13px;white-space:nowrap}
+.qs-r .pr small{display:block;font-size:11.5px}
+.qs-e{padding:14px;color:var(--muted);font-size:13px}
+@media (max-width:860px){#qsIn{font-size:16px}}
 </style>
 </head>
 <body>
@@ -430,8 +485,9 @@ footer{text-align:center;color:var(--dim);font-size:12px;padding:14px 10px 18px;
           <label class="chk"><input type="checkbox" id="optSR" checked> แนวรับ-ต้าน</label>
           <label class="chk"><input type="checkbox" id="optEMA" checked> EMA</label>
           <span class="sp"></span>
-          <span class="dim desk-only" style="font-size:12px">คลิกจอเพื่อเลือก · คลิกเหรียญซ้ายมือเพื่อเปลี่ยน · ล้อเมาส์ = ซูม</span>
+          <span class="dim desk-only" style="font-size:12px">กด / เพื่อค้นหา · คลิกจอเพื่อเลือก · คลิกเหรียญซ้ายมือเพื่อเปลี่ยน · ล้อเมาส์ = ซูม</span>
         </div>
+        <div class="qs" id="qs"><span class="qs-i">🔍</span><input id="qsIn" autocomplete="off" spellcheck="false" placeholder="ค้นหาเหรียญเพื่อดูกราฟ เช่น BTC, SOL, DOGE"><button id="qsClr" class="qs-x" aria-label="ล้าง">✕</button><div class="qs-dd" id="qsDd"></div></div>
         <div class="qchips mob-block" id="qchips"></div>
         <div class="grid g4" id="grid"></div>
       </div>
@@ -784,7 +840,7 @@ function testNews() {
 <script>
 'use strict';
 /* =====================================================================
-   Crypto Radar TH v6 — ไฟล์เดียว ไม่พึ่ง CDN (กราฟ + ข่าว + Backtest)
+   Crypto Radar TH v8 — ไฟล์เดียว ไม่พึ่ง CDN (กราฟ + ข่าว + Backtest)
    ข้อมูล: Binance TH REST (api.binance.th) + WebSocket (nbstream.binance.th)
    สำรอง: GAS proxy → Binance Global → โหมดสาธิต
    ===================================================================== */
@@ -831,6 +887,7 @@ function setNet(k,st,x={}){Object.assign(NET[k],{st,t:Date.now()},x)}
 function fp(v){if(v==null||!isFinite(v))return '-';const a=Math.abs(v);let d;
   if(a>=100)d=2;else if(a>=1)d=4;else if(a===0)d=2;else d=Math.min(10,Math.max(4,4-Math.floor(Math.log10(a))));
   return v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d})}
+function fpA(v){if(v==null||!isFinite(v))return '-';const a=Math.abs(v);return a>=1000?Math.round(v).toLocaleString('en-US'):fp(v)}
 function fv(v){if(!isFinite(v))return '-';const a=Math.abs(v);if(a>=1e9)return(v/1e9).toFixed(2)+'B';if(a>=1e6)return(v/1e6).toFixed(2)+'M';if(a>=1e3)return(v/1e3).toFixed(1)+'K';return v.toFixed(2)}
 const fpc=v=>isFinite(v)?(v>=0?'+':'')+v.toFixed(2)+'%':'-';
 const cls=v=>v>=0?'up':'down';
@@ -1118,10 +1175,10 @@ class CandleChart{
     let mn=Infinity,mx=-Infinity,vmx=0;
     for(let i=st;i<end;i++){const k=this.data[i];if(k.l<mn)mn=k.l;if(k.h>mx)mx=k.h;if(k.v>vmx)vmx=k.v;if(this.showEMA&&this.ind)for(const a of[this.ind.e20,this.ind.e50,this.ind.e200]){const v=a[i];if(v!=null){if(v<mn)mn=v;if(v>mx)mx=v}}}
     const pad=(mx-mn)*.07||mx*.01;mn-=pad;mx+=pad;
-    const AX=Math.max(64,ctx.measureText(fp(mx)).width+18),BX=22,pw=W-AX,ph=H-BX,volH=ph*.17,top=8,priceH=ph-volH-10,bw=pw/view;
+    const AX=Math.max(56,ctx.measureText(fpA(mx)).width+16),BX=22,pw=W-AX,ph=H-BX,volH=ph*.17,top=8,priceH=ph-volH-10,bw=pw/view;
     const Y=p=>top+(mx-p)/(mx-mn)*priceH,X=i=>pw-(end-i-.5)*bw;this._s={bw};
     ctx.textBaseline='middle';ctx.lineWidth=1;const step=niceStep((mx-mn)/6);
-    for(let p=Math.ceil(mn/step)*step;p<mx;p+=step){const y=Math.round(Y(p))+.5;if(y<top||y>top+priceH)continue;ctx.strokeStyle=COL.grid;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(pw,y);ctx.stroke();ctx.fillStyle=COL.axis;ctx.textAlign='left';ctx.fillText(fp(p),pw+6,y)}
+    for(let p=Math.ceil(mn/step)*step;p<mx;p+=step){const y=Math.round(Y(p))+.5;if(y<top||y>top+priceH)continue;ctx.strokeStyle=COL.grid;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(pw,y);ctx.stroke();ctx.fillStyle=COL.axis;ctx.textAlign='left';ctx.fillText(fpA(p),pw+6,y)}
     const every=Math.max(1,Math.ceil(90/bw));ctx.textAlign='center';
     for(let i=end-1;i>=st;i-=every){const x=Math.round(X(i))+.5;ctx.strokeStyle=COL.grid;ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,ph);ctx.stroke();ctx.fillStyle=COL.axis;ctx.fillText(tLabel(this.data[i].t,this.tf),x,ph+11)}
     for(let i=st;i<end;i++){const k=this.data[i],h=vmx?k.v/vmx*volH:0;ctx.fillStyle=k.c>=k.o?'rgba(43,196,160,.28)':'rgba(239,102,112,.28)';ctx.fillRect(X(i)-bw*.34,ph-h,Math.max(1,bw*.68),h)}
@@ -1134,18 +1191,19 @@ class CandleChart{
     for(const L of[...this.lines].sort((a,b)=>b.p-a.p)){if(L.p<mn||L.p>mx)continue;const y=Math.round(Y(L.p))+.5,crowd=used.some(u=>Math.abs(u-y)<15);used.push(y);
       ctx.strokeStyle=L.c;ctx.globalAlpha=.8;ctx.setLineDash(L.dash||[6,4]);ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(pw,y);ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=1;
       if(L.label&&!crowd){ctx.font='10.5px '+mono;const tw=ctx.measureText(L.label).width;ctx.fillStyle='rgba(20,25,34,.85)';ctx.fillRect(pw-tw-14,y-15,tw+10,13);ctx.fillStyle=L.c;ctx.textAlign='right';ctx.fillText(L.label,pw-9,y-8.5)}
-      if(!pills.some(u=>Math.abs(u-y)<17)){pills.push(y);this.pill(pw+2,y,fp(L.p),L.c)}}
+      if(!pills.some(u=>Math.abs(u-y)<17)){pills.push(y);this.pill(pw+2,y,fpA(L.p),L.c)}}
     const lk=this.data[n-1],ly=Math.round(Y(lk.c))+.5,lc=lk.c>=lk.o?COL.up:COL.down;
-    if(ly>=top&&ly<=top+priceH){ctx.strokeStyle=lc;ctx.setLineDash([2,3]);ctx.beginPath();ctx.moveTo(0,ly);ctx.lineTo(pw,ly);ctx.stroke();ctx.setLineDash([]);this.pill(pw+2,ly,fp(lk.c),lc)}
+    if(ly>=top&&ly<=top+priceH){ctx.strokeStyle=lc;ctx.setLineDash([2,3]);ctx.beginPath();ctx.moveTo(0,ly);ctx.lineTo(pw,ly);ctx.stroke();ctx.setLineDash([]);this.pill(pw+2,ly,fpA(lk.c),lc)}
     ctx.strokeStyle='#232b38';ctx.beginPath();ctx.moveTo(pw+.5,0);ctx.lineTo(pw+.5,ph);ctx.lineTo(0,ph+.5);ctx.stroke();
     let li=n-1;
     if(this.m&&this.m.x<pw&&this.m.y<ph){const i=Math.floor(end-(pw-this.m.x)/bw);if(i>=st&&i<end)li=i;
       ctx.strokeStyle=COL.cross;ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(Math.round(X(li))+.5,0);ctx.lineTo(Math.round(X(li))+.5,ph);ctx.moveTo(0,Math.round(this.m.y)+.5);ctx.lineTo(pw,Math.round(this.m.y)+.5);ctx.stroke();ctx.setLineDash([]);
-      if(this.m.y>=top&&this.m.y<=top+priceH)this.pill(pw+2,this.m.y,fp(mx-(this.m.y-top)/priceH*(mx-mn)),'#3a4556','#e6ebf2');
+      if(this.m.y>=top&&this.m.y<=top+priceH)this.pill(pw+2,this.m.y,fpA(mx-(this.m.y-top)/priceH*(mx-mn)),'#3a4556','#e6ebf2');
       ctx.font='11px '+mono;const tl=tFull(this.data[li].t),tw=ctx.measureText(tl).width+12;ctx.fillStyle='#3a4556';ctx.fillRect(X(li)-tw/2,ph+2,tw,18);ctx.fillStyle='#e6ebf2';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(tl,X(li),ph+11)}
-    const k=this.data[li],pk=this.data[li-1],chg=pk?(k.c/pk.c-1)*100:0;ctx.font='11px '+mono;ctx.textAlign='left';ctx.textBaseline='top';ctx.fillStyle='rgba(20,25,34,.8)';ctx.fillRect(4,4,Math.min(pw-8,520),17);let x=8;
-    for(const[l,v]of[['O',k.o],['H',k.h],['L',k.l],['C',k.c]]){ctx.fillStyle=COL.axis;ctx.fillText(l,x,7);x+=ctx.measureText(l).width+3;ctx.fillStyle=k.c>=k.o?COL.up:COL.down;const t=fp(v);ctx.fillText(t,x,7);x+=ctx.measureText(t).width+9}
-    ctx.fillStyle=chg>=0?COL.up:COL.down;ctx.fillText(fpc(chg),x,7);x+=ctx.measureText(fpc(chg)).width+9;ctx.fillStyle=COL.axis;ctx.fillText('V',x,7);x+=ctx.measureText('V').width+3;ctx.fillStyle=COL.gold;ctx.fillText(fv(k.v),x,7);
+    const k=this.data[li],pk=this.data[li-1],chg=pk?(k.c/pk.c-1)*100:0;ctx.font='11px '+mono;ctx.textAlign='left';ctx.textBaseline='top';const up=k.c>=k.o?COL.up:COL.down,items=pw<460?[['',fp(k.c),up],['',fpc(chg),chg>=0?COL.up:COL.down],['V ',fv(k.v),COL.gold]]:[['O ',fp(k.o),up],['H ',fp(k.h),up],['L ',fp(k.l),up],['C ',fp(k.c),up],['',fpc(chg),chg>=0?COL.up:COL.down],['V ',fv(k.v),COL.gold]];
+    let wsum=8;const fit=[];for(const it of items){const w=ctx.measureText(it[0]+it[1]).width+10;if(wsum+w>pw-8)break;fit.push(it);wsum+=w}
+    ctx.fillStyle='rgba(20,25,34,.82)';ctx.fillRect(4,4,wsum,17);let x=8;
+    for(const[l,t,c]of fit){if(l){ctx.fillStyle=COL.axis;ctx.fillText(l,x,7);x+=ctx.measureText(l).width}ctx.fillStyle=c;ctx.fillText(t,x,7);x+=ctx.measureText(t).width+10}
     if(this.note){ctx.font='10.5px sans-serif';ctx.fillStyle='rgba(20,25,34,.85)';const tw=ctx.measureText(this.note).width;ctx.fillRect(4,ph-volH-22,Math.min(tw+10,pw-8),16);ctx.fillStyle=COL.gold;ctx.fillText(this.note,9,ph-volH-19)}
   }
   remove(){try{this.ro&&this.ro.disconnect()}catch(e){}cancelAnimationFrame(this._raf);this.cv.remove()}
@@ -1432,11 +1490,34 @@ function wireSpikes(){const K=S.spk;$('#spkOn').checked=K.on;$('#spk1').value=K.
 const isMob=()=>matchMedia('(max-width:860px)').matches;
 S.secOpen=new Set(LS.get('secOpen',[0,1,2]));
 function renderQChips(){if(!isMob()||S.page!=='charts')return;const box=$('#qchips');const cur=S.panes[S.active]?.sym,q=splitSym(cur||'')[1]||defaultQuote();
-  const syms=[...new Set([cur,...S.panes.map(p=>p.sym),...S.spikes.slice(0,3).map(x=>x.sym),...S.list.filter(t=>t.q===q).slice(0,14).map(t=>t.s)])].filter(s=>s&&S.tickers.has(s));
+  const syms=[...new Set([cur,...S.panes.map(p=>p.sym),...S.spikes.slice(0,3).map(x=>x.sym),...S.list.filter(t=>t.q===q).slice(0,14).map(t=>t.s)])].filter(s=>s&&S.tickers.has(s)).slice(0,8);
   const key=syms.join(',')+cur;if(box.dataset.k!==key){box.dataset.k=key;box.innerHTML=syms.map(s=>{const t=S.tickers.get(s),z=S.spikes.find(x=>x.sym===s&&Date.now()-x.t<15*60e3);
-    return`<button class="qc ${s===cur?'on':''}" data-s="${s}">${z?`<span class="z ${z.dir==='u'?'up':'down'}">⚡</span>`:''}<b>${esc(t.b)}<span class="q">/${t.q}</span></b><span class="p">${fp(t.p)}</span><br><span class="c ${cls(t.ch||0)}">${fpc(t.ch)}</span></button>`}).join('');return}
-  $$('.qc',box).forEach(el=>{const t=S.tickers.get(el.dataset.s);if(!t)return;$('.p',el).textContent=fp(t.p);const c=$('.c',el);c.textContent=fpc(t.ch);c.className='c '+cls(t.ch||0)})}
+    return`<button class="qc ${s===cur?'on':''}" data-s="${s}">${z?`<span class="z ${z.dir==='u'?'up':'down'}">⚡</span>`:''}<b>${esc(t.b)}<span class="q">/${t.q}</span></b><span class="p">${fp(t.p)}</span><br><span class="c ${cls(t.ch||0)}">${fpc(t.ch)}</span></button>`}).join('')+'<button class="qc more" data-more="1">ทั้งหมด ›</button>';return}
+  $$('.qc[data-s]',box).forEach(el=>{const t=S.tickers.get(el.dataset.s);if(!t)return;$('.p',el).textContent=fp(t.p);const c=$('.c',el);c.textContent=fpc(t.ch);c.className='c '+cls(t.ch||0)})}
 function applySecState(){if(!isMob())return;$$('#side .sec').forEach((sec,i)=>{sec.dataset.i=i;sec.classList.toggle('cl',!S.secOpen.has(i))})}
+
+/* ---------- ค้นหาเหรียญหน้าแรก ---------- */
+const QS={sel:0,res:[]};
+function qsSearch(q){q=q.trim().toUpperCase().replace(/[\s/\-]/g,'');if(!q)return S.list.filter(t=>t.q===defaultQuote()).slice(0,8);
+  const out=[];for(const t of S.list){let r=-1;if(t.b===q)r=0;else if(t.s===q)r=0;else if(t.b.startsWith(q))r=1;else if(t.s.startsWith(q))r=2;else if(t.s.includes(q))r=3;
+    else{const nm=Object.entries(COIN_NAMES).find(([b])=>b===t.b);if(nm&&nm[1].some(n=>n.replace(/\\b/g,'').toUpperCase().includes(q)))r=2}
+    if(r>=0)out.push([r,t])}
+  const dq=defaultQuote();out.sort((a,b)=>a[0]-b[0]||(b[1].q===dq)-(a[1].q===dq)||b[1].qvU-a[1].qvU);return out.slice(0,10).map(x=>x[1])}
+function qsRender(){const box=$('#qs'),q=$('#qsIn').value;box.classList.toggle('has',!!q);QS.res=qsSearch(q);QS.sel=Math.min(QS.sel,Math.max(0,QS.res.length-1));
+  $('#qsDd').innerHTML=QS.res.length?(q?'':'<div class="qs-e" style="padding:8px 12px 4px">เหรียญยอดนิยม</div>')+QS.res.map((t,i)=>`<div class="qs-r ${i===QS.sel?'sel':''}" data-s="${t.s}"><span class="ic" style="background:${coinColor(t.b)}">${esc(t.b.slice(0,4))}</span><span class="nm"><b>${esc(t.b)}</b><span class="q"> / ${t.q}</span><small>Vol ${volTxt(t)}</small></span><span class="pr">${fp(t.p)}<small class="${cls(t.ch||0)}">${fpc(t.ch)}</small></span></div>`).join('')
+    :`<div class="qs-e">ไม่พบเหรียญ “${esc(q)}”</div>`}
+function qsPick(sym){const p=S.panes[S.active]||S.panes[0];$('#qs').classList.remove('open');$('#qsIn').value='';$('#qs').classList.remove('has');$('#qsIn').blur();
+  if(p){if(p.sym!==sym)p.setSym(sym);setTimeout(()=>p.el.scrollIntoView({behavior:'smooth',block:'nearest'}),80)}toast('เปิดกราฟ '+sym,'','ok','qs')}
+function wireQS(){const inp=$('#qsIn'),box=$('#qs');
+  inp.addEventListener('focus',()=>{box.classList.add('open');QS.sel=0;qsRender()});
+  inp.addEventListener('input',()=>{QS.sel=0;box.classList.add('open');qsRender()});
+  inp.addEventListener('keydown',e=>{if(e.key==='ArrowDown'){QS.sel=Math.min(QS.sel+1,QS.res.length-1);qsRender();e.preventDefault()}
+    else if(e.key==='ArrowUp'){QS.sel=Math.max(QS.sel-1,0);qsRender();e.preventDefault()}
+    else if(e.key==='Enter'){const t=QS.res[QS.sel];if(t)qsPick(t.s)}else if(e.key==='Escape'){box.classList.remove('open');inp.blur()}});
+  $('#qsDd').addEventListener('mousedown',e=>{const r=e.target.closest('[data-s]');if(r){e.preventDefault();qsPick(r.dataset.s)}});
+  $('#qsClr').addEventListener('click',()=>{inp.value='';inp.focus();qsRender()});
+  document.addEventListener('click',e=>{if(!box.contains(e.target))box.classList.remove('open')});
+  document.addEventListener('keydown',e=>{if(e.key==='/'&&S.page==='charts'&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName)){e.preventDefault();inp.focus()}})}
 /* =====================================================================
    PANES
    ===================================================================== */
@@ -1447,7 +1528,7 @@ class Pane{
   constructor(i,cfg){
     this.i=i;this.sym=cfg.sym;this.tf=cfg.tf;this.kl=null;this.a=null;this.c=null;this.ctx={};this.bt=null;this.tok=0;this.busy=false;
     const el=this.el=document.createElement('div');el.className='pane';
-    el.innerHTML=`<div class="ph"><input class="sym-in" list="symList" spellcheck="false"><span class="px mono">-</span><span class="chg mono"></span><span class="tb"></span><span class="lvb"></span>
+    el.innerHTML=`<div class="ph"><input class="sym-in" list="symList" spellcheck="false"><span class="sym-name" style="display:none"></span><span class="px mono">-</span><span class="chg mono"></span><span class="tb"></span><span class="lvb"></span>
       <div class="tfs">${TFS.map(t=>`<button data-tf="${t}">${t}</button>`).join('')}</div></div><div class="pb"></div><div class="pf">-</div>`;
     $('#grid').appendChild(el);this.chart=new CandleChart($('.pb',el));
     const inp=$('.sym-in',el);inp.value=this.sym;
@@ -1478,7 +1559,7 @@ class Pane{
     try{if(S.mode==='demo')demoMerge(this.kl,this.sym,this.tf);else{const nk=await getKlines(this.sym,this.tf,3);if(tok!==this.tok)return;mergeKl(this.kl,nk)}this.chart.setData(this.kl,true);this.refreshAnalysis()}
     catch(e){log('warn',`อัปเดตจอ ${this.i+1}: ${e.message}`)}finally{this.busy=false}}
   head(){const t=S.tickers.get(this.sym),el=this.el,last=t?.p??(this.kl?this.kl[this.kl.length-1].c:null);
-    $('.px',el).textContent=fp(last);const ch=$('.chg',el);if(t&&isFinite(t.ch)){ch.textContent=fpc(t.ch);ch.className='chg mono '+cls(t.ch)}else ch.textContent='';
+    $('.px',el).textContent=fp(last);const sn=$('.sym-name',el);if(sn){const[b0,q0]=splitSym(this.sym);sn.innerHTML=`${esc(b0)}<span class="q">/${q0}</span>`}const ch=$('.chg',el);if(t&&isFinite(t.ch)){ch.textContent=fpc(t.ch);ch.className='chg mono '+cls(t.ch)}else ch.textContent='';
     const a=this.a,c=this.c;$('.tb',el).innerHTML=(a?`<span class="badge b-${TR[a.trend].c}" title="${TR[a.trend].t}">${TR[a.trend].i}<span class="t"> ${TR[a.trend].t}</span></span>`:'')+(c&&c.nw&&c.nw.own&&c.nw.severe?' <span class="badge b-down" title="มีข่าวลบรุนแรงใน 24 ชม.">⚠</span>':'');
     const live=S.mode!=='demo'&&this.liveAt&&Date.now()-this.liveAt<15000;$('.lvb',el).innerHTML=S.mode==='demo'?'<span class="live off">สาธิต</span>':live?'<span class="live">● LIVE</span>':'';
     $('.pf',el).innerHTML=a&&c?`Vol ${volTxt(t)} <span class="${a.vr>=1.5?'up':'dim'}">(${a.vr.toFixed(1)}×)</span> · <span class="up">รับ ${fp(a.sup[0].p)}</span> · <span class="down">ต้าน ${fp(a.res[0].p)}</span> · รวม <b style="color:${vCol(c.verdict.c)}">${c.total}</b> ${c.verdict.t}${c.nw&&c.nw.own?` · ข่าว ${sgn(c.nw.score)}`:''}`:(t?`${t.b}/${t.q}`:'-')}
@@ -1841,10 +1922,10 @@ function wire(){
   $('#btnClrHist').addEventListener('click',()=>{S.hist=[];saveAlerts();renderAlerts()});
   // debug
   $('#btnTest').addEventListener('click',testConn);$('#btnSelf').addEventListener('click',()=>selfTest());
-  wireNews();wireSpikes();
+  wireNews();wireSpikes();wireQS();
   const wl=$('.wl');
   $('#btnView').addEventListener('click',()=>$('.center').classList.toggle('opts'));
-  $('#qchips').addEventListener('click',e=>{const c=e.target.closest('[data-s]');if(!c)return;const p=S.panes[S.active];if(p&&p.sym!==c.dataset.s)p.setSym(c.dataset.s);renderQChips()});
+  $('#qchips').addEventListener('click',e=>{if(e.target.closest('[data-more]')){$('#btnPick').click();return}const c=e.target.closest('[data-s]');if(!c)return;const p=S.panes[S.active];if(p&&p.sym!==c.dataset.s)p.setSym(c.dataset.s);renderQChips()});
   $('#side').addEventListener('click',e=>{if(!isMob())return;const h=e.target.closest('.sec>h4');if(!h||e.target.closest('button'))return;const sec=h.parentElement,i=+sec.dataset.i;if(S.secOpen.has(i))S.secOpen.delete(i);else S.secOpen.add(i);LS.set('secOpen',[...S.secOpen]);sec.classList.toggle('cl')});
   $('#mkSortM').addEventListener('change',e=>{const k=e.target.value;S.mk.sort={k,d:-1};renderMarket()});
   $('#btnPick').addEventListener('click',()=>{wl.classList.add('open');setTimeout(()=>$('#wlSearch').focus(),250)});
