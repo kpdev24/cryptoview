@@ -580,6 +580,16 @@ body.fullchart{overflow:hidden}
 }
 @media (min-width:861px) and (max-width:1120px){.tabs button>span:nth-child(2){display:none}.tabs button .ti{margin:0;font-size:17px}.tabs button{padding:7px 11px}}
 @media (max-width:400px){.brand b{display:none}.topbar{gap:6px}.pill{padding:6px 8px}}
+
+/* v13: ปุ่มซูม/วาด ย้ายขึ้นแถบหัวกราฟ ไม่บังกราฟ */
+.ph .zc{position:static;display:flex;flex-direction:row;gap:3px;opacity:1;flex:0 0 auto;margin-left:6px}
+.ph .zc button{width:26px;height:24px;border-radius:7px;font-size:13px;background:var(--bg2);border:1px solid var(--line)}
+.ph .zc button:hover{border-color:var(--gold);color:var(--gold)}
+.dt{position:static!important;display:none;max-width:none!important;border:0!important;border-bottom:1px solid var(--line)!important;border-radius:0!important;background:var(--bg2)!important;padding:5px 8px!important;gap:5px;align-items:center;overflow-x:auto;scrollbar-width:none}
+.pane.drawing .dt{display:flex}
+.dt button{background:var(--panel)!important}
+@container (max-width:620px){.ph{flex-wrap:wrap!important;row-gap:6px}.ph .tfs{order:8;margin-left:0}.ph .zc{order:9;margin-left:auto}}
+@media (max-width:860px){.ph{flex-wrap:wrap!important;row-gap:6px}.ph .zc{order:9;margin-left:auto}.ph .zc button{width:32px;height:28px;font-size:14px}}
 </style>
 </head>
 <body>
@@ -1005,7 +1015,7 @@ function testNews() {
 <script>
 'use strict';
 /* =====================================================================
-   Crypto Radar TH v12 — ไฟล์เดียว ไม่พึ่ง CDN (กราฟ + ข่าว + Backtest)
+   Crypto Radar TH v13 — ไฟล์เดียว ไม่พึ่ง CDN (กราฟ + ข่าว + Backtest)
    ข้อมูล: Binance TH REST (api.binance.th) + WebSocket (nbstream.binance.th)
    สำรอง: GAS proxy → Binance Global → โหมดสาธิต
    ===================================================================== */
@@ -1792,7 +1802,7 @@ class Pane{
     this.i=i;this.sym=cfg.sym;this.tf=cfg.tf;this.kl=null;this.a=null;this.c=null;this.ctx={};this.bt=null;this.tok=0;this.busy=false;
     const el=this.el=document.createElement('div');el.className='pane';
     el.innerHTML=`<div class="ph"><input class="sym-in" list="symList" spellcheck="false"><span class="sym-name" style="display:none"></span><button class="fvb" data-fav title="เหรียญโปรด">☆</button><span class="px mono">-</span><span class="chg mono"></span><span class="tb"></span><span class="lvb"></span>
-      <div class="tfs">${TFS.map(t=>`<button data-tf="${t}">${t}</button>`).join('')}</div></div><div class="pb"><div class="dt"><button data-t="h" title="เส้นแนวนอน">―</button><button data-t="t" title="เส้นแนวโน้ม">╱</button><button data-t="fib" title="Fibonacci">Fib</button><button data-t="undo" title="ย้อนกลับ">↶</button><button data-t="clear" title="ลบทั้งหมด">🗑</button><label class="dt-al" title="แจ้งเตือนเมื่อราคาแตะเส้น"><input type="checkbox" data-t="al" checked>🔔</label></div><div class="zc"><button data-z="draw" title="วาดเส้น">✎</button><button data-z="in" title="ขยาย">＋</button><button data-z="out" title="ย่อ">－</button><button data-z="reset" title="รีเซ็ตมุมมอง">⟲</button><button data-z="full" title="เต็มจอ">⛶</button></div></div><div class="pf">-</div>`;
+      <div class="tfs">${TFS.map(t=>`<button data-tf="${t}">${t}</button>`).join('')}</div><div class="zc"><button data-z="draw" title="วาดเส้น">✎</button><button data-z="in" title="ขยาย">＋</button><button data-z="out" title="ย่อ">－</button><button data-z="reset" title="รีเซ็ตมุมมอง">⟲</button><button data-z="full" title="เต็มจอ">⛶</button></div></div><div class="dt"><button data-t="h" title="เส้นแนวนอน">―</button><button data-t="t" title="เส้นแนวโน้ม">╱</button><button data-t="fib" title="Fibonacci">Fib</button><button data-t="undo" title="ย้อนกลับ">↶</button><button data-t="clear" title="ลบทั้งหมด">🗑</button><label class="dt-al" title="แจ้งเตือนเมื่อราคาแตะเส้น"><input type="checkbox" data-t="al" checked>🔔</label></div><div class="pb"></div><div class="pf">-</div>`;
     $('#grid').appendChild(el);this.chart=new CandleChart($('.pb',el));
     this.chart.onDraw=d=>addDrawing(this,d);
     $('[data-fav]',el).addEventListener('click',e=>{e.stopPropagation();toggleFav(this.sym)});
