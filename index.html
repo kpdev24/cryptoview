@@ -267,7 +267,14 @@ a.nw-t:hover{text-decoration:underline}
 @keyframes tin{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
 footer{text-align:center;color:var(--dim);font-size:12px;padding:14px 10px 18px;border-top:1px solid var(--line);margin-top:8px}
 
-@media (max-width:1280px){.ws{grid-template-columns:230px minmax(0,1fr);height:auto}.side{grid-column:1/-1;max-height:none}.center{height:calc(100vh - 100px);min-height:560px}}
+@media (min-width:1281px) and (max-width:1500px){.ws{grid-template-columns:210px minmax(0,1fr) 320px}}
+@media (min-width:861px) and (max-width:1280px){
+  .ws{grid-template-columns:minmax(0,1fr) clamp(290px,30vw,340px)}
+  .side{grid-column:auto;max-height:none}
+  .wl{position:fixed;left:0;top:0;bottom:0;width:300px;z-index:60;border-radius:0 14px 14px 0;transform:translateX(-105%);transition:transform .25s ease;box-shadow:8px 0 30px rgba(0,0,0,.5)}
+  .wl.open{transform:none}
+  .btn.tab-show{display:inline-flex!important}
+}
 @media (max-width:860px){
   .ws{grid-template-columns:1fr}.wl{max-height:300px}.center{height:auto}
   .g2,.g4{grid-template-columns:1fr;grid-template-rows:none}.pane{height:380px}
@@ -635,7 +642,7 @@ body.fullchart{overflow:hidden}
     <div class="ws">
       <aside class="card wl">
         <div class="wl-top">
-          <input class="inp" id="wlSearch" placeholder="🔍 ค้นหาเหรียญ"><button class="btn mob-only" id="btnWlClose">✕ ปิด</button>
+          <input class="inp" id="wlSearch" placeholder="🔍 ค้นหาเหรียญ"><button class="btn mob-only tab-show" id="btnWlClose">✕ ปิด</button>
           <div class="seg" id="wlQuote"></div>
         </div>
         <div class="wl-head"><span>เหรียญ <span id="wlCount"></span></span><span>ราคา / 24 ชม.</span></div>
@@ -644,7 +651,7 @@ body.fullchart{overflow:hidden}
 
       <div class="center">
         <div class="toolbar">
-          <button class="btn primary mob-only" id="btnPick">🔍 ทุกเหรียญ</button><button class="btn mob-only" id="btnView">⚙ มุมมอง</button><div class="seg" id="layoutSeg"><span class="lbl">จอ</span><button data-n="1">1</button><button data-n="2">2</button><button data-n="4">4</button></div>
+          <button class="btn primary mob-only tab-show" id="btnPick">🔍 ทุกเหรียญ</button><button class="btn mob-only" id="btnView">⚙ มุมมอง</button><div class="seg" id="layoutSeg"><span class="lbl">จอ</span><button data-n="1">1</button><button data-n="2">2</button><button data-n="4">4</button></div>
           <div class="seg" id="syncTf"><span class="lbl">ทุกจอ</span></div>
           <label class="chk"><input type="checkbox" id="optSR" checked> แนวรับ-ต้าน</label>
           <label class="chk"><input type="checkbox" id="optEMA" checked> EMA</label>
@@ -2303,7 +2310,7 @@ function wire(){
   $('#mkSortM').addEventListener('change',e=>{const k=e.target.value;S.mk.sort={k,d:-1};renderMarket()});
   $('#btnPick').addEventListener('click',()=>{wl.classList.add('open');setTimeout(()=>$('#wlSearch').focus(),250)});
   $('#btnWlClose').addEventListener('click',()=>wl.classList.remove('open'));
-  $('#wlList').addEventListener('click',()=>{if(isMob()){wl.classList.remove('open');setTimeout(()=>S.panes[S.active]?.el.scrollIntoView({behavior:'smooth',block:'start'}),150)}});
+  $('#wlList').addEventListener('click',()=>{if(innerWidth>860&&innerWidth<=1280)wl.classList.remove('open');if(isMob()){wl.classList.remove('open');setTimeout(()=>S.panes[S.active]?.el.scrollIntoView({behavior:'smooth',block:'start'}),150)}});
   // มือถือ: เปิดครั้งแรกใช้ 1 จอ
   if(isMob()&&LS.get('layout',null)==null){S.layout=1}
   $('#srcPref').addEventListener('change',async e=>{S.pref=e.target.value;LS.set('pref',S.pref);log('info','เปลี่ยนแหล่งข้อมูล: '+S.pref);await connect();renderDebug()});
@@ -2324,7 +2331,7 @@ async function init(){
   setTimeout(()=>{if(!S.scanning&&S.mode)runScan({auto:true,tf:'4h',n:40})},5000);
 }
 /* ---------- เข้าสู่ระบบ ---------- */
-const PW_HASH='de234c3abb3bce88553497b63ca86484593dd50c6392684e30ee7ad50f2359ac',PW_SALT='crt-salt-v1:';
+const PW_HASH='f38732b070e60d8178d27a6cb4cb15088eab87779631aac01f1b021510e53391',PW_SALT='crt-salt-v1:';
 function sha256hex(str){ // ใช้ได้ทั้งเปิดไฟล์ในเครื่อง/http/https
   const b=new TextEncoder().encode(str),K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
   const l=b.length,n=((l+9+63)>>6)<<6,m=new Uint8Array(n);m.set(b);m[l]=0x80;const dv=new DataView(m.buffer);dv.setUint32(n-4,l*8>>>0);dv.setUint32(n-8,Math.floor(l/0x20000000));
