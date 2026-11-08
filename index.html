@@ -725,6 +725,12 @@ footer .vstat{justify-content:center;margin:0 auto 8px;flex-wrap:wrap;gap:4px 14
 @media (max-width:860px){footer .vstat{order:0;width:auto;justify-content:center;font-size:11.5px}}
 #btnUser,#bnGuest,#login,#page-member,#page-admin,.vstat,.toprow,#adHome,#tlinks{display:none!important}
 #page-charts .ws,#page-charts.has-ad .ws{height:calc(100vh - 88px)}
+.fl-head{display:flex;align-items:center;gap:12px}.fl-head .badge{margin-left:auto}
+.fl-sc{font:700 30px/1 var(--mono);min-width:48px}.fl-lv{font-weight:700;font-size:15px}
+.fl-bar{position:relative;height:22px;border-radius:7px;background:rgba(239,102,112,.35);overflow:hidden;margin:10px 0 6px;display:flex;justify-content:space-between;align-items:center;padding:0 8px;font-size:11.5px;font-weight:600}
+.fl-bar i{position:absolute;left:0;top:0;bottom:0;background:rgba(43,196,160,.55)}.fl-bar span{position:relative}
+.fl-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:4px}.fl-mini div{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:5px 8px;text-align:center}
+.fl-mini small{display:block;color:var(--dim);font-size:11px}.fl-mini b{font-family:var(--mono)}
 </style>
 </head>
 <body>
@@ -1165,7 +1171,7 @@ function testNews() {
 <script>
 'use strict';
 /* =====================================================================
-   Crypto Radar TH v23 (GitHub) — ไฟล์เดียว ไม่พึ่ง CDN (กราฟ + ข่าว + Backtest)
+   Crypto Radar TH v24 (GitHub) — ไฟล์เดียว ไม่พึ่ง CDN (กราฟ + ข่าว + Backtest)
    ข้อมูล: Binance TH REST (api.binance.th) + WebSocket (nbstream.binance.th)
    สำรอง: GAS proxy → Binance Global → โหมดสาธิต
    ===================================================================== */
@@ -1323,7 +1329,7 @@ async function glGet(path){let last;
     catch(e){if(isClientErr(e))throw e;last=e}}
   setNet('glRest','fail',{err:last?.message});throw last||new Error('Global REST ไม่ได้');
 }
-const parseKl=j=>{if(!Array.isArray(j))throw new Error('รูปแบบข้อมูลกราฟไม่ถูกต้อง');return j.map(k=>({t:+k[0],o:+k[1],h:+k[2],l:+k[3],c:+k[4],v:+k[5]}))};
+const parseKl=j=>{if(!Array.isArray(j))throw new Error('รูปแบบข้อมูลกราฟไม่ถูกต้อง');return j.map(k=>({t:+k[0],o:+k[1],h:+k[2],l:+k[3],c:+k[4],v:+k[5],bv:k[9]!=null?+k[9]:undefined}))};
 
 /* =====================================================================
    NETWORK — WebSocket (ไม่ติด CORS จึงใช้ได้แม้เปิดไฟล์จากเครื่อง)
@@ -1367,7 +1373,7 @@ function applyMini(x){
   t.p=p;t.o=o;t.h=+x.h;t.l=+x.l;t.qv=+x.q;if(x.v!=null)t.v=+x.v;t.ch=o?(p/o-1)*100:0;S.lastTick=Date.now();
   if(S.alertSyms.has(x.s))checkAlerts(x.s);
 }
-function applyKline(d){const k=d.k,sym=d.s||k.s,bar={t:+k.t,o:+k.o,h:+k.h,l:+k.l,c:+k.c,v:+k.v};
+function applyKline(d){const k=d.k,sym=d.s||k.s,bar={t:+k.t,o:+k.o,h:+k.h,l:+k.l,c:+k.c,v:+k.v,bv:k.V!=null?+k.V:undefined};
   for(const p of S.panes)if(p.sym===sym&&p.tf===k.i&&p.kl){mergeKl(p.kl,[bar]);p.liveAt=Date.now();p.chart.setData(p.kl,true);if(k.x||Date.now()-(p.aAt||0)>4000)p.refreshAnalysis()}
   const t=S.tickers.get(sym);if(t&&t.p!==bar.c){t.pp=t.p;t.p=bar.c;t.u=Date.now();if(t.o)t.ch=(t.p/t.o-1)*100;S.lastTick=Date.now();if(S.alertSyms.has(sym))checkAlerts(sym)}
 }
@@ -1386,9 +1392,10 @@ function demoTick(){for(const b in S.demoPrice)S.demoPrice[b]*=1+(Math.random()-
 function demoKlines(sym,tf,limit){const t=S.tickers.get(sym);if(!t)throw Object.assign(new Error('ไม่พบคู่เหรียญ '+sym),{http:400});
   const ms=TF_MS[tf],r=rng(hash(sym+tf)),sig=.0022*Math.pow(ms/6e4,.35);let x=0,dr=0;const raw=[];
   const L=Math.max(limit,1000);for(let i=0;i<L;i++){if(i%45===0)dr=(r()-.5)*sig*.6;const o=x;x+=dr+(r()+r()+r()-1.5)*sig*1.4;raw.push([o,Math.max(o,x)+r()*sig*.9,Math.min(o,x)-r()*sig*.9,x,(.4+r()*1.6)*(1+Math.abs(x-o)/sig)])}
-  const f=t.p/Math.exp(x),end=Math.floor(Date.now()/ms)*ms;return raw.slice(-limit).map((k,i)=>({t:end-(limit-1-i)*ms,o:f*Math.exp(k[0]),h:f*Math.exp(k[1]),l:f*Math.exp(k[2]),c:f*Math.exp(k[3]),v:k[4]*1e3}))}
+  const f=t.p/Math.exp(x),end=Math.floor(Date.now()/ms)*ms;return raw.slice(-limit).map((k,i)=>({t:end-(limit-1-i)*ms,o:f*Math.exp(k[0]),h:f*Math.exp(k[1]),l:f*Math.exp(k[2]),c:f*Math.exp(k[3]),v:k[4]*1e3,bv:k[4]*1e3*demoBuyR(k,i,r)}))}
+function demoBuyR(k,i,r){const rg=Math.max(1e-9,k[1]-k[2]),pos=(k[3]-k[2])/rg;return Math.min(.92,Math.max(.08,.18+pos*.62+(r()-.5)*.22))}
 function demoMerge(kl,sym,tf){const t=S.tickers.get(sym);if(!t||!kl.length)return;const ms=TF_MS[tf],now=Math.floor(Date.now()/ms)*ms,l=kl[kl.length-1];
-  if(now>l.t)kl.push({t:now,o:l.c,h:Math.max(l.c,t.p),l:Math.min(l.c,t.p),c:t.p,v:l.v*.3});else{l.c=t.p;l.h=Math.max(l.h,t.p);l.l=Math.min(l.l,t.p)}}
+  if(now>l.t)kl.push({t:now,o:l.c,h:Math.max(l.c,t.p),l:Math.min(l.c,t.p),c:t.p,v:l.v*.3,bv:l.v*.15});else{l.c=t.p;l.h=Math.max(l.h,t.p);l.l=Math.min(l.l,t.p)}}
 
 /* =====================================================================
    CONNECT — เลือกแหล่งข้อมูล
@@ -1459,7 +1466,7 @@ async function getKlines(sym,tf,limit=400){
   const[b,qt]=splitSym(sym);if(!['THB','USDT'].includes(qt)||b==='USDT')throw new Error('ไม่มีกราฟย้อนหลังของ '+sym+' (ต้องใช้ GAS proxy)');
   const gs=b+'USDT';const g=parseKl(await glGet(`/klines?symbol=${gs}&interval=${tf}&limit=${limit}`));if(!g.length)throw new Error('ไม่มีข้อมูล');
   const t=S.tickers.get(sym);const mul=t&&t.p?t.p/g[g.length-1].c:(qt==='THB'?S.fx:1);
-  const kl=g.map(k=>({t:k.t,o:k.o*mul,h:k.h*mul,l:k.l*mul,c:k.c*mul,v:k.v}));
+  const kl=g.map(k=>({t:k.t,o:k.o*mul,h:k.h*mul,l:k.l*mul,c:k.c*mul,v:k.v,bv:k.bv}));
   kl.est=`กราฟย้อนหลังประมาณจาก ${gs} (Binance Global)${qt==='THB'?' × อัตรา '+fp(mul)+' ฿':''} · แท่งล่าสุดจาก Binance TH`;return kl;
 }
 function refreshList(){COIN_RE=null;
@@ -1574,7 +1581,12 @@ class CandleChart{
     for(let p=Math.ceil(mn/step)*step;p<mx;p+=step){const y=Math.round(Y(p))+.5;if(y<top||y>top+priceH)continue;ctx.strokeStyle=COL.grid;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(pw,y);ctx.stroke();ctx.fillStyle=COL.axis;ctx.textAlign='left';ctx.fillText(fpA(p),pw+6,y)}
     const every=Math.max(1,Math.ceil(90/bw));ctx.textAlign='center';
     for(let i=end-1;i>=st;i-=every){const x=Math.round(X(i))+.5;ctx.strokeStyle=COL.grid;ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,ph);ctx.stroke();ctx.fillStyle=COL.axis;ctx.fillText(tLabel(this.data[i].t,this.tf),x,ph+11)}
-    for(let i=st;i<end;i++){const k=this.data[i],h=vmx?k.v/vmx*volH:0;ctx.fillStyle=k.c>=k.o?'rgba(43,196,160,.28)':'rgba(239,102,112,.28)';ctx.fillRect(X(i)-bw*.34,ph-h,Math.max(1,bw*.68),h)}
+    for(let i=st;i<end;i++){const k=this.data[i],h=vmx?k.v/vmx*volH:0,x0=X(i)-bw*.34,w0=Math.max(1,bw*.68);
+      if(k.bv!=null&&k.v>0){const hb=h*Math.min(1,k.bv/k.v);ctx.fillStyle='rgba(43,196,160,.42)';ctx.fillRect(x0,ph-hb,w0,hb);ctx.fillStyle='rgba(239,102,112,.42)';ctx.fillRect(x0,ph-h,w0,h-hb)}
+      else{ctx.fillStyle=k.c>=k.o?'rgba(43,196,160,.28)':'rgba(239,102,112,.28)';ctx.fillRect(x0,ph-h,w0,h)}}
+    if(S.optCVD!==false&&this.data[st]&&this.data[st].bv!=null){let cv=0;const pts=[];for(let i=st;i<end;i++){const k=this.data[i];cv+=(k.bv!=null?2*k.bv-k.v:0);pts.push(cv)}
+      const cmn=Math.min(...pts),cmx=Math.max(...pts),cr=cmx-cmn||1;ctx.save();ctx.strokeStyle=COL.gold;ctx.lineWidth=1.3;ctx.globalAlpha=.9;ctx.beginPath();
+      pts.forEach((v,j)=>{const x=X(st+j),y=ph-4-(v-cmn)/cr*(volH-8);j?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();ctx.globalAlpha=1;ctx.font='10px sans-serif';ctx.fillStyle=COL.gold;ctx.textAlign='left';ctx.fillText('CVD',4,ph-volH+8);ctx.restore()}
     const cw=Math.max(1,bw*.66);
     for(let i=st;i<end;i++){const k=this.data[i],x=X(i),col=k.c>=k.o?COL.up:COL.down;ctx.strokeStyle=col;ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(Math.round(x)+.5,Y(k.h));ctx.lineTo(Math.round(x)+.5,Y(k.l));ctx.stroke();const y1=Y(Math.max(k.o,k.c)),y2=Y(Math.min(k.o,k.c));ctx.fillRect(x-cw/2,y1,cw,Math.max(1,y2-y1))}
     if((this.drawings&&this.drawings.length)||this.pending){const XI=t=>X(this.idxOfT(t));ctx.save();ctx.beginPath();ctx.rect(0,top,pw,priceH);ctx.clip();ctx.lineWidth=1.4;
@@ -1980,7 +1992,7 @@ async function getDepth(sym){if(S.mode==='demo'){const t=S.tickers.get(sym),p=t.
   if(!j||!Array.isArray(j.bids))throw new Error('ข้อมูลไม่ถูกต้อง');return{bids:j.bids.map(x=>[+x[0],+x[1]]),asks:j.asks.map(x=>[+x[0],+x[1]])}}
 async function loadOB(sym,force){const c=OB[sym];if(c&&c.busy)return;if(c&&!force&&Date.now()-c.at<10e3)return;OB[sym]={...(c||{}),busy:true};
   try{const d=await getDepth(sym);OB[sym]={d,at:Date.now(),busy:false}}catch(e){OB[sym]={err:e.message,at:Date.now(),busy:false}}
-  const box=$('#obBox');if(box&&S.panes[S.active]?.sym===sym)box.innerHTML=obHtml(sym)}
+  const box=$('#obBox');if(box&&S.panes[S.active]?.sym===sym)box.innerHTML=obHtml(sym);S.panes.forEach(p=>{if(p.sym===sym&&p.kl&&!p._obF){p._obF=1;p.refreshAnalysis();p._obF=0}})}
 function obHtml(sym){const c=OB[sym];if(!c||(!c.d&&!c.err)){setTimeout(()=>loadOB(sym),0);return'<div class="note">กำลังโหลด…</div>'}
   if(c.err&&!c.d)return`<div class="note down">${esc(c.err)}</div>`;
   const{bids,asks}=c.d;if(!bids.length||!asks.length)return'<div class="note">ไม่มีข้อมูล</div>';
@@ -2017,6 +2029,44 @@ function divergences(kl){const n=kl.length,c=kl.map(k=>k.c),r=rsi(c,14),w=3,lows
   if(lows.length>=2){const[a,b]=lows.slice(-2);if(b>=n-20&&kl[b].l<kl[a].l&&r[b]>r[a]+2)out.push({up:true,i1:a,i2:b,t1:kl[a].t,p1:kl[a].l,t2:kl[b].t,p2:kl[b].l,r1:r[a],r2:r[b],name:'Bullish Divergence — ราคาทำจุดต่ำใหม่ แต่ RSI ยกตัว (แรงขายอ่อนลง)'})}
   if(highs.length>=2){const[a,b]=highs.slice(-2);if(b>=n-20&&kl[b].h>kl[a].h&&r[b]<r[a]-2)out.push({up:false,i1:a,i2:b,t1:kl[a].t,p1:kl[a].h,t2:kl[b].t,p2:kl[b].h,r1:r[a],r2:r[b],name:'Bearish Divergence — ราคาทำจุดสูงใหม่ แต่ RSI ลดลง (แรงซื้ออ่อนลง)'})}
   return out}
+/* ===== v24 วิเคราะห์ปริมาณซื้อขาย (Order Flow) ===== */
+const FLOW_LV=[[75,'แรงซื้อคุม','🟢🟢','up'],[55,'เอียงขึ้น','🟢','up'],[45,'สมดุล','⚪','side'],[25,'เอียงลง','🟠','down'],[0,'แรงขายคุม','🔴','down']];
+function flowAnalysis(kl,ob,sym){if(!kl||kl.length<40)return null;const n=kl.length,C=kl.slice(0,n-1);if(C[C.length-1].bv==null)return{na:true};
+  const m=C.length,sl=(a,b)=>C.slice(a,b),sum=(arr,f)=>arr.reduce((x,k)=>x+f(k),0);
+  const br=arr=>{const v=sum(arr,k=>k.v);return v?sum(arr,k=>k.bv)/v:.5};
+  const b20=br(sl(m-20,m)),b5=br(sl(m-5,m)),b50=br(sl(m-50,m));
+  let cv=0;const cvd=C.map(k=>cv+=2*k.bv-k.v),vAvg=sum(sl(m-20,m),k=>k.v)/20||1;
+  const cvdCh=(cvd[m-1]-cvd[m-21])/(vAvg*20),pxCh=(C[m-1].c/C[m-21].c-1);
+  const atrP=sum(sl(m-14,m),k=>k.h-k.l)/14/C[m-1].c||.01;
+  let div=0;if(pxCh<-atrP&&cvdCh>.06)div=1;else if(pxCh>atrP&&cvdCh<-.06)div=-1;
+  let ob_=0,obv=[];C.forEach((k,i)=>{if(i)ob_+=k.c>C[i-1].c?k.v:k.c<C[i-1].c?-k.v:0;obv.push(ob_)});const obvUp=obv[m-1]>obv[m-11]&&obv[m-11]>obv[m-21],obvDn=obv[m-1]<obv[m-11]&&obv[m-11]<obv[m-21];
+  const lk=C[m-1],vr=lk.v/vAvg,spike=vr>=2?(lk.c>=lk.o?1:-1):0;
+  let imb=null,wallB=null,wallA=null;const px=lk.c;
+  if(ob&&ob.d&&ob.d.bids&&ob.d.bids.length){const near=(arr,up)=>arr.filter(x=>up?x[0]<=px*1.01:x[0]>=px*.99);const bs=near(ob.d.bids,false),as=near(ob.d.asks,true);
+    const sb=bs.reduce((x,y)=>x+y[0]*y[1],0),sa=as.reduce((x,y)=>x+y[0]*y[1],0);if(sb+sa>0)imb=sb/(sb+sa);
+    const med=arr=>{const q=arr.map(x=>x[0]*x[1]).sort((a,b)=>a-b);return q[q.length>>1]||0};const mb=med(ob.d.bids.slice(0,50)),ma=med(ob.d.asks.slice(0,50));
+    const wb=ob.d.bids.slice(0,50).filter(x=>x[0]*x[1]>mb*5).sort((a,b)=>b[0]*b[1]-a[0]*a[1])[0],wa=ob.d.asks.slice(0,50).filter(x=>x[0]*x[1]>ma*5).sort((a,b)=>b[0]*b[1]-a[0]*a[1])[0];
+    if(wb)wallB={p:wb[0],v:wb[0]*wb[1]};if(wa)wallA={p:wa[0],v:wa[0]*wa[1]}}
+  let sc=50+(b20-.5)*110+(b5-.5)*50+div*10+(obvUp?6:obvDn?-6:0)+spike*6+(imb!=null?(imb-.5)*30:0);sc=Math.round(Math.max(0,Math.min(100,sc)));
+  const lv=FLOW_LV.find(x=>sc>=x[0]);const R=[];
+  R.push([b20>=.5?'p':'n',`แรงซื้อ ${(b20*100).toFixed(0)}% ใน 20 แท่งล่าสุด`]);
+  if(Math.abs(b5-b20)>.06)R.push([b5>b20?'p':'n',`5 แท่งล่าสุด${b5>b20?'แรงซื้อเร่งขึ้น':'แรงขายเร่งขึ้น'} (${(b5*100).toFixed(0)}%)`]);
+  if(div>0)R.push(['p','ราคาลงแต่ CVD ยกตัว → มีคนเก็บของ (Bullish CVD Divergence)']);
+  if(div<0)R.push(['n','ราคาขึ้นแต่ CVD ลดลง → ขึ้นแบบไม่มีแรงซื้อจริง ระวังทุบ']);
+  if(!div)R.push([cvdCh>=0?'p':'n',`CVD ${cvdCh>.03?'ยกตัว':cvdCh<-.03?'ลดลง':'ทรงตัว'} สอดคล้องราคา`]);
+  if(obvUp)R.push(['p','OBV ยกตัวต่อเนื่อง → เงินไหลเข้า']);if(obvDn)R.push(['n','OBV ลดลงต่อเนื่อง → เงินไหลออก']);
+  if(spike)R.push([spike>0?'p':'n',`วอลุ่มพุ่ง ${vr.toFixed(1)}× ${spike>0?'พร้อมราคาขึ้น (ยืนยันแรงซื้อ)':'ตอนราคาลง (มีคนเทขาย)'}`]);
+  if(imb!=null)R.push([imb>=.5?'p':'n',`ออเดอร์บุ๊ก ±1%: ฝั่งซื้อหนา${imb>=.5?'กว่า':'น้อยกว่า'} ${(imb>=.5?imb/(1-imb):(1-imb)/imb).toFixed(1)} เท่า`]);
+  const t=S.tickers.get(sym),thin=t&&t.qv!=null&&isFinite(t.qv)&&(t.q==='THB'?t.qv<3e5:t.q==='USDT'?t.qv<1e4:false);
+  return{sc,lv:{t:lv[1],i:lv[2],c:lv[3]},b20,b5,b50,cvdCh,div,obvUp,obvDn,vr,spike,imb,wallB,wallA,R,thin,cvd}}
+function flowHtml(f,sym){if(!f)return'<div class="note">กำลังคำนวณ…</div>';if(f.na)return'<div class="note">แหล่งข้อมูลนี้ไม่มีข้อมูลแยกฝั่งซื้อ/ขาย</div>';
+  const col=f.lv.c==='up'?'var(--up)':f.lv.c==='down'?'var(--down)':'var(--muted)',pct=x=>(x*100).toFixed(0)+'%';
+  return`<div class="fl-head"><span class="fl-sc" style="color:${col}">${f.sc}</span><div><div class="fl-lv" style="color:${col}">${f.lv.i} ${f.lv.t}</div><div class="dim" style="font-size:11.5px">คะแนนแรงตลาด 0–100</div></div>${f.thin?'<span class="badge b-side" title="วอลุ่ม 24 ชม. ต่ำ ข้อมูลอาจหลอกได้ง่าย">⚠ ข้อมูลน้อย</span>':''}</div>
+  <div class="fl-bar"><i style="width:${pct(f.b20)}"></i><span>ซื้อ ${pct(f.b20)}</span><span>ขาย ${pct(1-f.b20)}</span></div>
+  <div class="fl-mini">${[['5 แท่ง',f.b5],['20 แท่ง',f.b20],['50 แท่ง',f.b50]].map(([l,v])=>`<div><small>${l}</small><b class="${v>=.55?'up':v<=.45?'down':''}">${pct(v)}</b></div>`).join('')}</div>
+  <ul class="adj">${f.R.map(([k,t])=>`<li class="${k==='p'?'up':'down'}">${k==='p'?'▲':'▼'} ${esc(t)}</li>`).join('')}</ul>
+  ${f.wallB||f.wallA?`<dl class="kv" style="margin-top:6px">${f.wallB?`<dt>กำแพงซื้อ (แนวรับ)</dt><dd class="up">${fp(f.wallB.p)} <small class="dim">${fv(f.wallB.v)}</small></dd>`:''}${f.wallA?`<dt>กำแพงขาย (แนวต้าน)</dt><dd class="down">${fp(f.wallA.p)} <small class="dim">${fv(f.wallA.v)}</small></dd>`:''}</dl>`:''}
+  <div class="note">แท่งวอลุ่ม: <span class="up">เขียว = เคาะซื้อ</span> · <span class="down">แดง = เคาะขาย</span> · เส้น <span class="gold">CVD</span> = ยอดสะสมซื้อ−ขาย · ใช้แท่งที่ปิดแล้ว</div>`}
 function entrySignal(kl,a,ctx,c){if(!kl||!a)return null;const n=kl.length,last=a.last,atrV=a.atr,pl=a.plan;
   const pats=candlePatterns(kl,atrV),divs=divergences(kl),recentBull=pats.filter(x=>x.up&&x.i>=n-4),recentBear=pats.filter(x=>!x.up&&x.i>=n-4),bullDiv=divs.find(d=>d.up),bearDiv=divs.find(d=>!d.up);
   const k=kl[n-2],vr=a.vr,inZone=last<=pl.eHi+atrV*.25&&last>=pl.stop,nearSup=(last-a.sup[0].p)/atrV<=1.0;
@@ -2027,7 +2077,7 @@ function entrySignal(kl,a,ctx,c){if(!kl||!a)return null;const n=kl.length,last=a
     {ok:!htfDown,key:'htf',txt:ctx&&ctx.htf?`กรอบใหญ่ (${ctx.htfTf}) ไม่เป็นขาลง`:'กรอบใหญ่ (ยังไม่มีข้อมูล)',na:!(ctx&&ctx.htf)},
     {ok:nearSup,key:'zone',txt:`ราคาย่อถึงโซนแนวรับ ${fp(a.sup[0].p)} (ห่าง ${((last-a.sup[0].p)/atrV).toFixed(1)} ATR · ต้อง ≤ 1)`},
     {ok:trig,key:'trig',txt:trig?`มีสัญญาณกลับตัว: ${[...recentBull.map(x=>x.name.split(' (')[0]),bullDiv&&bullDiv.i2>=n-8?'Bullish Divergence':''].filter(Boolean).join(', ')}`:'มีแท่งเทียนกลับตัว หรือ Bullish Divergence'},
-    {ok:vr>=1.1||k.c>k.o,key:'vol',txt:`วอลุ่ม/แท่งล่าสุดยืนยัน (Vol ${vr.toFixed(1)}× · แท่ง${k.c>k.o?'เขียว':'แดง'})`},
+    a.flow&&!a.flow.na?{ok:a.flow.sc>=55,key:'vol',txt:`แรงซื้อยืนยัน (แรงตลาด ${a.flow.sc} · ซื้อ ${(a.flow.b20*100).toFixed(0)}%${a.flow.div>0?' · CVD Div ▲':''})`}:{ok:vr>=1.1||k.c>k.o,key:'vol',txt:`วอลุ่ม/แท่งล่าสุดยืนยัน (Vol ${vr.toFixed(1)}× · แท่ง${k.c>k.o?'เขียว':'แดง'})`},
     {ok:a.rsi<65&&(a.macd.h>a.macd.hp||a.macd.crossUp),key:'mom',txt:`โมเมนตัมเริ่มฟื้น (RSI ${a.rsi.toFixed(0)} · MACD ${a.macd.h>a.macd.hp?'เร่งขึ้น':'ยังอ่อน'})`},
     {ok:rr>=1.5,key:'rr',txt:`คุ้มความเสี่ยง R:R 1:${rr.toFixed(2)} (ขั้นต่ำ 1:1.5)`},
     {ok:!sevNews&&!recentBear.length&&!(bearDiv&&bearDiv.i2>=n-8),key:'risk',txt:sevNews?'มีข่าวลบรุนแรง':recentBear.length?`มีแท่งกลับตัวขาลง: ${recentBear[0].name.split(' (')[0]}`:bearDiv&&bearDiv.i2>=n-8?'มี Bearish Divergence':'ไม่มีข่าวลบรุนแรง / สัญญาณขาลงสวน'}];
@@ -2038,7 +2088,7 @@ function entrySignal(kl,a,ctx,c){if(!kl||!a)return null;const n=kl.length,last=a
   else{const lastTrig=[...recentBull,...pats.filter(x=>x.up&&x.i>=n-12)].sort((x,y)=>y.i-x.i)[0];
     if(lastTrig&&last>pl.eHi+atrV*1.2&&!okK('zone'))st='late';else if((okK('zone')&&pass>=5)||(trig&&(last-a.sup[0].p)/atrV<=1.5&&pass>=4))st='prep';else st='wait'}
   let why={go:'ครบเงื่อนไขหลัก: อยู่ในโซนซื้อ + มีสัญญาณกลับตัว + คุ้มความเสี่ยง',prep:okK('zone')?'ราคาเข้าโซนแล้ว รอแท่งกลับตัวยืนยันก่อนเข้า':'สัญญาณส่วนใหญ่ดี รอราคาย่อเข้าโซนซื้อ',wait:'ยังไม่ถึงโซนซื้อและยังไม่มีสัญญาณกลับตัว',late:'สัญญาณผ่านไปแล้ว ราคาวิ่งห่างโซนซื้อ ไม่ควรไล่ราคา',no:htfDown?'กรอบใหญ่เป็นขาลง เสี่ยงสูง ยังไม่ควรเข้า':'มีข่าวลบรุนแรง ควรรอดูสถานการณ์'}[st];
-  const SH={htf:'กรอบใหญ่ไม่เป็นขาลง',zone:'ราคาย่อถึงแนวรับ',trig:'แท่งกลับตัว/Divergence',vol:'วอลุ่มยืนยัน',mom:'โมเมนตัมฟื้น',rr:'R:R ≥ 1.5',risk:'ไม่มีสัญญาณขาลงสวน'},miss=checks.filter(x=>!x.ok&&!x.na).map(x=>SH[x.key]);
+  const SH={htf:'กรอบใหญ่ไม่เป็นขาลง',zone:'ราคาย่อถึงแนวรับ',trig:'แท่งกลับตัว/Divergence',vol:'แรงซื้อยืนยัน',mom:'โมเมนตัมฟื้น',rr:'R:R ≥ 1.5',risk:'ไม่มีสัญญาณขาลงสวน'},miss=checks.filter(x=>!x.ok&&!x.na).map(x=>SH[x.key]);
   if((st==='prep'||st==='wait')&&miss.length)why=(st==='prep'?'ใกล้แล้ว ':'')+'ยังขาด: '+miss.join(' · ');
   return{st,...SIG[st],why,checks,pass,entry,sl,tp1,tp2,rr,pats,divs,barT:kl[n-2].t}}
 function sigHtml(sg){if(!sg)return'<div class="note">กำลังคำนวณ…</div>';const col=vCol(sg.c==='side'?'side':sg.c);
@@ -2097,7 +2147,7 @@ class Pane{
     const bs=btcFor(sym);if(bs&&splitSym(sym)[0]!=='BTC'){try{ctx.btc=analyze(await getKlinesC(bs,tf,300,60e3));ctx.btcSym=bs}catch(e){}}
     if(tok!==this.tok)return;this.ctx=ctx;this.refreshAnalysis()}
   recombine(){if(this.a){this.c=combine(this.sym,this.a,this.ctx);this.head()}}
-  refreshAnalysis(){if(!this.kl)return;this.a=analyze(this.kl);this.c=this.a?combine(this.sym,this.a,this.ctx):null;this.sig=this.a?entrySignal(this.kl,this.a,this.ctx,this.c):null;if(this.sig){this.chart.pats=this.sig.pats;this.chart.divs=this.sig.divs;sigAlert(this)}this.aAt=Date.now();this.chart.showEMA=S.optEMA;this.chart.lines=[...srLines(this.a),...alertLines(this.sym)];this.chart.req();this.head();if(S.active===this.i)renderSide(true)}
+  refreshAnalysis(){if(!this.kl)return;this.a=analyze(this.kl);this.flow=flowAnalysis(this.kl,OB[this.sym],this.sym);if(this.a)this.a.flow=this.flow;this.c=this.a?combine(this.sym,this.a,this.ctx):null;this.sig=this.a?entrySignal(this.kl,this.a,this.ctx,this.c):null;if(this.sig){this.chart.pats=this.sig.pats;this.chart.divs=this.sig.divs;sigAlert(this)}this.aAt=Date.now();this.chart.showEMA=S.optEMA;this.chart.lines=[...srLines(this.a),...alertLines(this.sym)];this.chart.req();this.head();if(S.active===this.i)renderSide(true)}
   async tick(){if(!this.kl||this.busy)return;this.busy=true;const tok=this.tok;
     try{if(S.mode==='demo')demoMerge(this.kl,this.sym,this.tf);else{const nk=await getKlines(this.sym,this.tf,3);if(tok!==this.tok)return;mergeKl(this.kl,nk)}this.chart.setData(this.kl,true);this.refreshAnalysis()}
     catch(e){log('warn',`อัปเดตจอ ${this.i+1}: ${e.message}`)}finally{this.busy=false}}
@@ -2182,6 +2232,7 @@ function renderSide(soft){
       <div class="dim" style="font-size:12px;margin-top:4px">สัญญาณเทคนิคบวก ${a.up} · ลบ ${a.dn}</div></div></div>
 
     <div class="sec sg-sec"><h4>🎯 สัญญาณเข้าซื้อ <span class="dim" style="font-size:11.5px">กรอบ ${p.tf}</span></h4>${sigHtml(p.sig)}</div>
+    <div class="sec fl-sec"><h4>🌊 แรงซื้อ-ขาย <span class="dim" style="font-size:11.5px">ปริมาณซื้อขายจริง</span></h4>${flowHtml(p.flow,p.sym)}</div>
 
     <div class="sec"><h4>ที่มาของคะแนนรวม</h4>
       ${bar('กราฟเทคนิค',c.tech,c.w.t)}${bar(nw&&!nw.own?'ข่าว (ภาพรวม)':'ข่าว',c.newsC,c.w.n)}${bar('อารมณ์ตลาด',c.fngC,c.w.f)}
@@ -2250,6 +2301,7 @@ function rowC(t){const x=S.scan[t.s];return x?combine(t.s,{score:x.sc},{btcAdj:x
 function mkRows(){const q=S.mk,s=q.search.toUpperCase().trim();let rows=S.list.filter(t=>(q.q==='ALL'||t.q===q.q)&&(!s||t.s.includes(s)));
   if(q.trend==='fav')rows=rows.filter(t=>S.fav.has(t.s));
   else if(q.trend==='go'||q.trend==='prep')rows=rows.filter(t=>S.scan[t.s]?.sig===q.trend);
+  else if(q.trend==='flow')rows=rows.filter(t=>(S.scan[t.s]?.fl??0)>=75).sort((x,y)=>S.scan[y.s].fl-S.scan[x.s].fl);
   else if(q.trend==='news')rows=rows.filter(t=>NEWS.byCoin.get(t.b)?.agg);
   else if(q.trend)rows=rows.filter(t=>{const x=S.scan[t.s];return x&&(q.trend==='buy'?rowC(t).total>=70:x.tr===q.trend)});
   const cc=new Map();const C=t=>{if(!cc.has(t.s))cc.set(t.s,rowC(t));return cc.get(t.s)};
@@ -2260,9 +2312,9 @@ function renderMarket(){
   $$('#mkQuote button').forEach(b=>b.classList.toggle('on',b.dataset.q===q.q));
   $$('#mkTable th').forEach(th=>{th.querySelector('.ar')?.remove();if(th.dataset.k&&th.dataset.k===q.sort.k)th.insertAdjacentHTML('beforeend',`<span class="ar"> ${q.sort.d>0?'↑':'↓'}</span>`)});
   const inQ=S.list.filter(t=>q.q==='ALL'||t.q===q.q),sc=inQ.filter(t=>S.scan[t.s]),cnt={buy:0,up:0,down:0,acc:0,side:0};
-  sc.forEach(t=>{const x=S.scan[t.s];if(rowC(t).total>=70)cnt.buy++;cnt[x.tr]++});cnt.news=inQ.filter(t=>NEWS.byCoin.get(t.b)?.agg).length;cnt.fav=inQ.filter(t=>S.fav.has(t.s)).length;cnt.go=inQ.filter(t=>S.scan[t.s]?.sig==='go').length;cnt.prep=inQ.filter(t=>S.scan[t.s]?.sig==='prep').length;
+  sc.forEach(t=>{const x=S.scan[t.s];if(rowC(t).total>=70)cnt.buy++;cnt[x.tr]++});cnt.news=inQ.filter(t=>NEWS.byCoin.get(t.b)?.agg).length;cnt.fav=inQ.filter(t=>S.fav.has(t.s)).length;cnt.go=inQ.filter(t=>S.scan[t.s]?.sig==='go').length;cnt.prep=inQ.filter(t=>S.scan[t.s]?.sig==='prep').length;cnt.flow=inQ.filter(t=>(S.scan[t.s]?.fl??0)>=75).length;
   const chip=(k,l)=>`<span class="chip ${q.trend===k?'on':''}" data-f="${k}">${l}${k?` <b>${cnt[k]}</b>`:` <b>${inQ.length}</b>`}</span>`;
-  $('#mkChips').innerHTML=chip('','ทั้งหมด')+chip('fav','★ โปรด')+chip('buy','🎯 น่าซื้อ')+chip('up','▲ ขาขึ้น')+chip('down','▼ ขาลง')+chip('acc','◆ สะสม')+chip('side','↔ แกว่งตัว')+chip('news','📰 มีข่าว')+chip('go','✅ เข้าได้')+chip('prep','👀 เตรียมตัว');
+  $('#mkChips').innerHTML=chip('','ทั้งหมด')+chip('fav','★ โปรด')+chip('buy','🎯 น่าซื้อ')+chip('up','▲ ขาขึ้น')+chip('down','▼ ขาลง')+chip('acc','◆ สะสม')+chip('side','↔ แกว่งตัว')+chip('news','📰 มีข่าว')+chip('go','✅ เข้าได้')+chip('prep','👀 เตรียมตัว')+chip('flow','🌊 แรงซื้อคุม');
   const picks=sc.filter(t=>S.scan[t.s].tr!=='down').map(t=>({t,c:rowC(t)})).sort((a,b)=>b.c.total-a.c.total).slice(0,6);
   $('#picks').innerHTML=picks.length?picks.map(({t,c})=>{const x=S.scan[t.s];return`<div class="pick" data-s="${t.s}"><div class="top"><b class="mono">${esc(t.b)}<span class="q">/${t.q}</span></b><span class="badge b-${TR[x.tr].c}">${TR[x.tr].i} ${TR[x.tr].t}</span></div>
     <div class="row"><span class="mono" style="color:var(--text);font-size:15px">${fp(t.p)}</span><span class="mono ${cls(t.ch||0)}">${fpc(t.ch)}</span></div>
@@ -2290,7 +2342,7 @@ async function runScan(opt={}){
   for(const q of [...new Set(list.map(t=>t.q))].slice(0,4)){const bs=S.tickers.has('BTC'+q)?'BTC'+q:(S.tickers.has('BTCUSDT')?'BTCUSDT':null);if(bs)try{btcA[q]=analyze(await getKlinesC(bs,tf,300,60e3))}catch(e){}}
   const prog=()=>{$('#scanProg>div').style.width=(done/list.length*100)+'%';$('#scanProg span').textContent=`กำลังสแกน ${done}/${list.length} เหรียญ (${tf})…`};prog();
   const w=async()=>{while(i<list.length&&!S.scanStop){const t=list[i++];
-    try{const a=analyze(await getKlinesC(t.s,tf,300,60e3));if(a){const bA=btcA[t.q],btcAdj=t.b!=='BTC'&&bA?(bA.trend==='down'?-8:bA.trend==='up'?4:0):0;const _kl=await getKlinesC(t.s,tf,300,60e3),_sg=entrySignal(_kl,a,null,null);S.scan[t.s]={tf,tr:a.trend,sc:a.score,vr:a.vr,btcAdj,sig:_sg?_sg.st:null,s1:a.sup[0].p,r1:a.res[0].p,t:Date.now()};okc++}}catch(e){log('warn',`สแกน ${t.s}: ${e.message}`)}
+    try{const a=analyze(await getKlinesC(t.s,tf,300,60e3));if(a){const bA=btcA[t.q],btcAdj=t.b!=='BTC'&&bA?(bA.trend==='down'?-8:bA.trend==='up'?4:0):0;const _kl=await getKlinesC(t.s,tf,300,60e3),_fl=flowAnalysis(_kl,null,t.s);a.flow=_fl;const _sg=entrySignal(_kl,a,null,null);S.scan[t.s]={fl:_fl&&!_fl.na?_fl.sc:null,tf,tr:a.trend,sc:a.score,vr:a.vr,btcAdj,sig:_sg?_sg.st:null,s1:a.sup[0].p,r1:a.res[0].p,t:Date.now()};okc++}}catch(e){log('warn',`สแกน ${t.s}: ${e.message}`)}
     done++;prog();if(done%8===0){if(S.page==='market')renderMarket();renderWatch(true)}if(S.mode!=='demo')await sleep(150)}};
   await Promise.all(Array.from({length:conc},w));
   S.scanning=false;$('#btnScan').textContent='▶ สแกนวิเคราะห์';$('#scanProg').classList.add('hidden');LS.set('scan',S.scan);renderWatch(true);if(S.page==='market')renderMarket();
