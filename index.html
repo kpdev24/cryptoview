@@ -614,6 +614,117 @@ body.fullchart{overflow:hidden}
 .sg-p{font-size:12px;padding:2px 0}
 .sg-sec{background:linear-gradient(180deg,rgba(231,181,76,.05),transparent);margin-left:-16px;margin-right:-16px;padding-left:16px!important;padding-right:16px!important}
 @container (max-width:560px){.ph .sg-chip .t{display:none}}
+
+/* ===== v16 สมาชิก + โฆษณา ===== */
+.adbar{display:flex;align-items:center;gap:12px;margin:0 0 10px;padding:8px 10px 8px 14px;border-radius:12px;border:1px solid var(--line);background:linear-gradient(90deg,rgba(231,181,76,.10),rgba(91,141,239,.07));font-size:13px;min-width:0;text-decoration:none;color:inherit}
+.adbar.hidden{display:none}
+.ad-tag{font-size:10px;letter-spacing:.4px;color:var(--dim);border:1px solid var(--line2);border-radius:4px;padding:1px 5px;flex:0 0 auto}
+.ad-ic{font-size:22px;flex:0 0 auto;line-height:1}
+.ad-tx{min-width:0;flex:1}.ad-tx b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13.5px}
+.ad-tx span{color:var(--muted);font-size:12px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ad-x{background:none;border:0;color:var(--dim);font-size:15px;padding:4px 6px;cursor:pointer;flex:0 0 auto}
+.ad-dots{display:flex;gap:4px;flex:0 0 auto}.ad-dots i{width:6px;height:6px;border-radius:50%;background:var(--line2)}.ad-dots i.on{background:var(--gold)}
+#page-charts.has-ad .ws{height:calc(100vh - 146px)}
+.adcards{display:grid;gap:10px}
+.adcard{display:flex;gap:12px;align-items:center;padding:14px;border-radius:12px;border:1px solid var(--line);background:linear-gradient(135deg,rgba(231,181,76,.10),rgba(91,141,239,.06));text-decoration:none;color:inherit;min-width:0}
+.adcard .ad-ic{font-size:30px}.adcard .ad-tx b{white-space:normal}.adcard .ad-tx span{white-space:normal}
+.tlinks{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 16px;font-size:12.5px;margin:0 auto 10px;max-width:1100px}
+.tlinks .lb{color:var(--dim)}
+.tlinks a{color:var(--muted);text-decoration:none}.tlinks a:hover{color:var(--gold);text-decoration:underline}
+#btnUser{display:inline-flex;align-items:center;gap:6px;max-width:190px}
+#btnUser .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#btnUser .av,.av{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#e9bb57,#5b8def);color:#111;font-weight:700;font-size:12px;flex:0 0 auto}
+#btnUser.adm .av{background:linear-gradient(135deg,#ef6670,#e9bb57)}
+.mb-wrap{display:grid;grid-template-columns:minmax(0,900px);gap:12px;align-items:start}
+.mb-hero{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.mb-hero .av{width:64px;height:64px;font-size:28px}
+.mb-hero h2{margin:0;font-size:20px}
+.mb-badge{display:inline-block;font-size:11.5px;padding:2px 9px;border-radius:999px;border:1px solid var(--line2);color:var(--muted);margin-left:6px;vertical-align:middle}
+.mb-badge.adm{color:var(--down);border-color:rgba(239,102,112,.45)}
+.mb-badge.ok{color:var(--up);border-color:rgba(43,196,160,.45)}
+.mb-badge.off{color:var(--down);border-color:rgba(239,102,112,.45);background:rgba(239,102,112,.08)}
+.mb-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:10px}
+.mb-stat{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.mb-stat b{display:block;font-size:20px;font-family:var(--mono)}.mb-stat span{font-size:12px;color:var(--muted)}
+.mb-act{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.mb-ben{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:7px;font-size:13.5px}
+.mb-ben li::before{content:'✓ ';color:var(--up);font-weight:700}
+.ad-list,.u-list{display:grid;gap:8px}
+.u-row{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,.8fr) minmax(0,1fr) auto;gap:6px 12px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);font-size:13px}
+.u-row .who{display:flex;gap:10px;align-items:center;min-width:0}.u-row .who>div{min-width:0}
+.u-row .who b,.u-row .who small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.u-row small{color:var(--dim);font-size:11.5px}
+.u-row .acts{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.u-row.off{opacity:.72}
+.a-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);font-size:13px}
+.a-row .ad-tx b{font-size:13px}
+.a-row.off{opacity:.55}
+.adm-top{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.adm-tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.adm-tools .inp{flex:1 1 200px;width:auto}
+.adm-wrap{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,1fr);gap:12px;align-items:start}
+.sw{position:relative;width:38px;height:22px;border-radius:999px;background:var(--line2);border:0;cursor:pointer;flex:0 0 auto;transition:background .2s}
+.sw::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left .2s}
+.sw.on{background:var(--up)}.sw.on::after{left:19px}
+/* login / modal */
+.login{background:rgba(5,8,12,.72);backdrop-filter:blur(4px)}
+.login-box{position:relative;text-align:left}
+.login-box .x,.mdl-box .x{position:absolute;top:10px;right:12px;background:none;border:0;color:var(--dim);font-size:20px;cursor:pointer}
+.lg-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:3px;margin:0 0 14px}
+.lg-tabs button{background:none;border:0;padding:8px;border-radius:8px;color:var(--muted);font-size:13.5px;cursor:pointer}
+.lg-tabs button.on{background:var(--panel2);color:var(--gold);font-weight:600}
+.fld{display:block;margin:0 0 10px;font-size:12.5px;color:var(--muted)}.fld .inp{margin-top:4px;font-size:15px;padding:10px 12px}
+.login .reg-only{display:none}.login.reg .reg-only{display:block}.login.reg .log-only{display:none}
+.lg-demo{font-size:11.5px;color:var(--dim);background:var(--bg2);border:1px dashed var(--line2);border-radius:8px;padding:8px 10px;margin-top:12px;line-height:1.6}
+.mdl{position:fixed;inset:0;z-index:110;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(5,8,12,.72)}
+.mdl.hidden{display:none}
+.mdl-box{position:relative;width:100%;max-width:440px;max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--line2);border-radius:16px;padding:22px 20px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.mdl-box h3{margin:0 0 14px;font-size:17px}
+.mdl-err{color:var(--down);font-size:12.5px;min-height:18px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:1100px){.adm-wrap,.mb-wrap{grid-template-columns:1fr}}
+@media (max-width:860px){
+  #btnUser .nm{display:none}#btnUser{padding:6px 8px}
+  #page-charts.has-ad .ws{height:auto}
+  .adbar{padding:8px 8px 8px 10px;gap:8px}.adbar .ad-dots,.adbar .ad-tag{display:none}
+  .adm-top{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .u-row{grid-template-columns:minmax(0,1fr) auto}.u-row .c-role,.u-row .c-time{font-size:12px}
+  .u-row .acts{grid-column:1/-1;justify-content:flex-start}
+  .tlinks{padding:0 8px}
+}
+@media (max-width:420px){.row2{grid-template-columns:1fr}}
+
+/* v17 text ads แบบเนียน */
+.tad{display:flex;align-items:center;gap:8px;min-width:0;margin:0 0 8px;padding:4px 2px;font-size:12.5px;color:var(--muted);text-decoration:none;border:0;background:none}
+.tad.hidden{display:none}
+.tad .tg{font-size:10.5px;color:var(--dim);flex:0 0 auto}
+.tad .tg::after{content:'·';margin-left:8px}
+.tad .tt{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tad .tt b{color:var(--text);font-weight:500}
+.tad .tt i{font-style:normal;color:var(--dim)}
+.tad .go{color:var(--gold);flex:0 0 auto;font-size:12px}
+.tad:hover .tt b{color:var(--gold);text-decoration:underline}
+.tad .ad-x{font-size:12px;padding:0 4px;opacity:.6}
+.tad-in{animation:tadf .5s ease}@keyframes tadf{from{opacity:0}to{opacity:1}}
+#page-charts .ws{height:calc(100vh - 122px)}
+.tadbox{border-top:1px solid var(--line);margin-top:14px;padding-top:10px}
+.tadbox .tad{margin:0;padding:5px 0}
+
+.toprow{display:flex;align-items:center;gap:12px;margin:0 0 8px;min-height:26px}
+.toprow .tad{margin:0;flex:1 1 auto}
+.vstat{display:flex;align-items:center;gap:12px;margin-left:auto;font-size:12px;color:var(--muted);white-space:nowrap;flex:0 0 auto}
+.vstat b{color:var(--text);font-family:var(--mono);font-weight:600}
+.vstat .on i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--up);margin-right:5px;box-shadow:0 0 0 0 rgba(43,196,160,.6);animation:vpl 2s infinite}
+@keyframes vpl{0%{box-shadow:0 0 0 0 rgba(43,196,160,.55)}70%{box-shadow:0 0 0 7px rgba(43,196,160,0)}100%{box-shadow:0 0 0 0 rgba(43,196,160,0)}}
+@media (max-width:860px){.toprow{flex-wrap:wrap;gap:4px 10px}.vstat{margin-left:0;order:-1;width:100%;justify-content:space-between;font-size:11.5px}}
+
+.gline{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;margin:8px 16px 0;padding:2px 2px;font-size:12.5px;color:var(--muted)}
+.gline.hidden{display:none}.gline .sep{color:var(--dim)}
+.gline a{color:var(--gold);text-decoration:none;font-weight:500}.gline a:hover{text-decoration:underline}
+.gline .ad-x{font-size:12px;padding:0 4px;opacity:.6;margin-left:auto}
+@media (max-width:860px){.gline{margin:6px 10px 0;font-size:12px}.gline .gl-why,.gline .sep{display:none}}
+footer .vstat{justify-content:center;margin:0 auto 8px;flex-wrap:wrap;gap:4px 14px}
+@media (max-width:860px){footer .vstat{order:0;width:auto;justify-content:center;font-size:11.5px}}
+#btnUser,#bnGuest,#login,#page-member,#page-admin,.vstat,.toprow,#adHome,#tlinks{display:none!important}
+#page-charts .ws,#page-charts.has-ad .ws{height:calc(100vh - 88px)}
 </style>
 </head>
 <body>
@@ -630,15 +741,17 @@ body.fullchart{overflow:hidden}
   </nav>
   <span class="sp"></span>
   <div class="status" id="status" title="ดูรายละเอียดการเชื่อมต่อ"><i class="dot" id="stDot"></i><span id="stText">กำลังเชื่อมต่อ…</span><small id="stAge"></small></div>
-  <button class="pill" id="btnTheme" title="สลับธีมสว่าง/มืด">☀️</button><button class="pill" id="btnLogout" title="ออกจากระบบ">⎋</button><button class="pill" id="btnNotif">🔔 <span>เปิดแจ้งเตือน</span></button>
+  <button class="pill" id="btnTheme" title="สลับธีมสว่าง/มืด">☀️</button><button class="pill" id="btnUser" title="บัญชีสมาชิก"><span class="av">👤</span><span class="nm">เข้าสู่ระบบ</span></button><button class="pill" id="btnNotif">🔔 <span>เปิดแจ้งเตือน</span></button>
 </header>
 
 <div class="banner warn hidden" id="bnDemo">⚠️ <span><b>โหมดสาธิต</b> — เชื่อมต่อ Binance ไม่ได้ ตัวเลขเป็นราคาจำลอง ระบบจะลองเชื่อมต่อใหม่ทุก 1 นาที</span><button class="btn sm" data-retry>ลองเชื่อมต่อใหม่</button></div>
 <div class="banner info hidden" id="bnGlobal">ℹ️ <span>เชื่อมต่อ Binance TH ไม่ได้ จึงใช้ข้อมูล <b>Binance Global</b> (คู่ USDT) แทน — ดูสาเหตุและวิธีแก้ที่แท็บ 🛠 ตรวจระบบ</span><button class="btn sm" data-retry>ลอง Binance TH อีกครั้ง</button></div>
 
+<div class="gline hidden" id="bnGuest"><span>👋 คุณกำลังใช้งานแบบผู้เยี่ยมชม ข้อมูลจะไม่ถูกบันทึก</span><span class="sep">·</span><a href="#" data-login="reg">สมัครสมาชิกฟรี</a><span class="dim">หรือ</span><a href="#" data-login="in">เข้าสู่ระบบ</a><span class="dim gl-why">เพื่อจดจำพอร์ตและการแจ้งเตือน</span><button class="ad-x" id="bnGuestX" title="ซ่อน">✕</button></div>
 <main>
   <!-- ================= CHARTS + ANALYSIS ================= -->
   <section class="page on" id="page-charts">
+    <div class="toprow"><a class="tad hidden" id="adHome" target="_blank" rel="noopener sponsored"></a></div>
     <div class="ws">
       <aside class="card wl">
         <div class="wl-top">
@@ -825,17 +938,30 @@ body.fullchart{overflow:hidden}
       <span style="float:right;display:flex;gap:6px"><button class="btn sm" id="btnLogCopy">คัดลอก</button><button class="btn sm" id="btnLogClear">ล้าง</button><button class="btn sm" id="btnReset">ล้างการตั้งค่าทั้งหมด</button></span></h3>
       <div class="log" id="dbgLog"></div></div>
   </section>
+
+  <!-- ================= MEMBER ================= -->
+  <section class="page" id="page-member"><div id="mbBody"></div></section>
+  <!-- ================= ADMIN ================= -->
+  <section class="page" id="page-admin"><div id="admBody"></div></section>
 </main>
 
-<div id="login" class="login"><form class="login-box" id="loginForm" autocomplete="off">
-  <div class="logo" style="width:52px;height:52px;font-size:26px;margin:0 auto 12px">◈</div>
-  <h2>Crypto Radar TH</h2><p class="muted" style="margin:0 0 18px;font-size:13px">กรอกรหัสผ่านเพื่อเข้าใช้งาน</p>
-  <div class="pw"><input class="inp" id="loginPw" type="password" inputmode="numeric" placeholder="รหัสผ่าน" autocomplete="current-password"><button type="button" class="ib" id="pwEye" aria-label="แสดงรหัส">👁</button></div>
-  <label class="chk" style="margin:12px 0 4px"><input type="checkbox" id="loginRem" checked> จดจำการเข้าสู่ระบบในเครื่องนี้</label>
+<div id="login" class="login hide"><form class="login-box" id="loginForm" autocomplete="on">
+  <button type="button" class="x" id="loginX" aria-label="ปิด">✕</button>
+  <div style="text-align:center"><div class="logo" style="width:48px;height:48px;font-size:24px;margin:0 auto 10px">◈</div>
+  <h2 style="text-align:center">Crypto Radar TH</h2><p class="muted" style="margin:0 0 14px;font-size:13px;text-align:center">สมาชิกจะได้จดจำพอร์ต แจ้งเตือน และการตั้งค่าทุกอย่าง</p></div>
+  <div class="lg-tabs"><button type="button" data-lt="in" class="on">เข้าสู่ระบบ</button><button type="button" data-lt="reg">สมัครสมาชิกฟรี</button></div>
+  <label class="fld reg-only">ชื่อที่แสดง<input class="inp" id="lgName" maxlength="40" placeholder="เช่น สมชาย"></label>
+  <label class="fld">อีเมล<input class="inp" id="lgEmail" type="email" placeholder="you@email.com" autocomplete="username"></label>
+  <label class="fld">รหัสผ่าน<span class="pw" style="display:flex;gap:6px;margin-top:4px"><input class="inp" id="loginPw" type="password" placeholder="อย่างน้อย 6 ตัวอักษร" autocomplete="current-password" style="margin:0;text-align:left;letter-spacing:0"><button type="button" class="ib" id="pwEye" aria-label="แสดงรหัส">👁</button></span></label>
+  <label class="fld reg-only">ยืนยันรหัสผ่าน<input class="inp" id="lgPw2" type="password" autocomplete="new-password"></label>
+  <label class="chk log-only" style="margin:4px 0 6px;justify-content:flex-start"><input type="checkbox" id="loginRem" checked> จดจำการเข้าสู่ระบบ 30 วัน</label>
   <div class="login-err" id="loginErr"></div>
-  <button class="btn primary" style="width:100%;padding:11px;font-size:15px;margin-top:6px">เข้าสู่ระบบ</button>
-  <p class="dim" style="font-size:11.5px;margin:14px 0 0">Crypto Radar TH © 2026 Power By KPDev</p></form></div>
-<footer>Crypto Radar TH © 2026 Power By KPDev</footer>
+  <button class="btn primary" id="lgBtn" style="width:100%;padding:11px;font-size:15px;margin-top:4px">เข้าสู่ระบบ</button>
+  <div class="lg-demo">🧪 <b>บัญชีทดลอง (เดโม่)</b><br>แอดมิน: admin@cryptoradar.th / demo<br>สมาชิก: somchai@mail.com / demo1234</div>
+</form></div>
+<div class="mdl hidden" id="mdl"><form class="mdl-box" id="mdlForm"><button type="button" class="x" data-mx>✕</button><h3 id="mdlT"></h3><div id="mdlB"></div><div class="mdl-err" id="mdlErr"></div>
+  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:6px"><button type="button" class="btn" data-mx>ยกเลิก</button><button class="btn primary" id="mdlOk">บันทึก</button></div></form></div>
+<footer><div class="tlinks" id="tlinks"></div><div class="vstat" id="vstat" title="สถิติผู้เข้าชม"></div>Crypto Radar TH © 2026 Power By KPDev</footer>
 <div id="toasts"></div>
 <script type="text/plain" id="gasSrc">
 /** Crypto Radar TH — Google Apps Script backend v3
@@ -1039,13 +1165,65 @@ function testNews() {
 <script>
 'use strict';
 /* =====================================================================
-   Crypto Radar TH v14 — ไฟล์เดียว ไม่พึ่ง CDN (กราฟ + ข่าว + Backtest)
+   Crypto Radar TH v23 (GitHub) — ไฟล์เดียว ไม่พึ่ง CDN (กราฟ + ข่าว + Backtest)
    ข้อมูล: Binance TH REST (api.binance.th) + WebSocket (nbstream.binance.th)
    สำรอง: GAS proxy → Binance Global → โหมดสาธิต
    ===================================================================== */
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-const LS={get(k,d){try{const v=localStorage.getItem('crt2_'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem('crt2_'+k,JSON.stringify(v))}catch(e){}}};
+/* ---------- v16 ระบบสมาชิก ----------
+   เดโม่: ฐานข้อมูลสมาชิกจำลองไว้ในเบราว์เซอร์ (crtdb_*) — เวอร์ชันจริงย้ายไป GAS + Google Sheets
+   ผู้เยี่ยมชม: เก็บใน MEM (หน่วยความจำ) อย่างเดียว ปิดหน้าแล้วหาย · สมาชิก: แยกพื้นที่ crtu_<id>_ */
+function sha256hex(str){ // ใช้ได้ทั้งเปิดไฟล์ในเครื่อง/http/https
+  const b=new TextEncoder().encode(str),K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+  const l=b.length,n=((l+9+63)>>6)<<6,m=new Uint8Array(n);m.set(b);m[l]=0x80;const dv=new DataView(m.buffer);dv.setUint32(n-4,l*8>>>0);dv.setUint32(n-8,Math.floor(l/0x20000000));
+  let H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];const w=new Uint32Array(64),r=(x,k)=>(x>>>k)|(x<<(32-k));
+  for(let o=0;o<n;o+=64){for(let i=0;i<16;i++)w[i]=dv.getUint32(o+i*4);for(let i=16;i<64;i++){const s0=r(w[i-15],7)^r(w[i-15],18)^(w[i-15]>>>3),s1=r(w[i-2],17)^r(w[i-2],19)^(w[i-2]>>>10);w[i]=(w[i-16]+s0+w[i-7]+s1)>>>0}
+    let[a,b2,c,d,e,f,g,h]=H;for(let i=0;i<64;i++){const t1=(h+(r(e,6)^r(e,11)^r(e,25))+((e&f)^(~e&g))+K[i]+w[i])>>>0,t2=((r(a,2)^r(a,13)^r(a,22))+((a&b2)^(a&c)^(b2&c)))>>>0;h=g;g=f;f=e;e=(d+t1)>>>0;d=c;c=b2;b2=a;a=(t1+t2)>>>0}
+    H=H.map((x,i)=>(x+[a,b2,c,d,e,f,g,h][i])>>>0)}
+  return H.map(x=>x.toString(16).padStart(8,'0')).join('')}
+const RAW={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},del(k){try{localStorage.removeItem(k);sessionStorage.removeItem(k)}catch(e){}}};
+const uHash=(email,pw)=>sha256hex('crt-u1:'+String(email).trim().toLowerCase()+':'+pw);
+const DB={
+  users(){let u=RAW.get('crtdb_users',null);if(!Array.isArray(u)){const t=Date.now(),D=864e5;
+    u=[{id:'u_admin',name:'แอดมิน KPDev',email:'admin@cryptoradar.th',role:'admin',status:'active',created:t-60*D,last:t-2*36e5,logins:42,note:''},
+       {id:'u_somchai',name:'สมชาย ใจดี',email:'somchai@mail.com',role:'member',status:'active',created:t-21*D,last:t-5*D,logins:12,note:''},
+       {id:'u_suda',name:'สุดา รักเทรด',email:'suda@mail.com',role:'member',status:'suspended',created:t-9*D,last:t-8*D,logins:3,note:'สแปมแจ้งเตือน'},
+       {id:'u_niran',name:'นิรันดร์',email:'niran@mail.com',role:'member',status:'active',created:t-2*D,last:t-36e5,logins:4,note:''}];
+    u.forEach(x=>x.hash=uHash(x.email,x.id==='u_admin'?'demo':'demo1234'));RAW.set('crtdb_users',u)}return u},
+  save(u){RAW.set('crtdb_users',u)},
+  ads(){let a=RAW.get('crtdb_ads',null);if(!a){a={banners:[
+      {id:'a1',ic:'🛍️',title:'ดีลดี — รวมดีลเครื่องใช้ไฟฟ้า & ไอทีจาก Shopee',desc:'ลดราคาทุกวัน เปรียบเทียบก่อนซื้อ',url:'https://deeldee.online',cta:'ดูดีล',slot:'all',on:true},
+      {id:'a2',ic:'💬',title:'PrachinZone — ชุมชนคนปราจีนบุรี',desc:'พูดคุย ซื้อขาย ข่าวสารในพื้นที่',url:'https://prachinzone.com',cta:'เข้าชม',slot:'all',on:true},
+      {id:'a3',ic:'📢',title:'พื้นที่โฆษณาว่าง',desc:'ลงโฆษณากับ Crypto Radar TH ติดต่อ KPDev',url:'mailto:kpjay2024@gmail.com',cta:'ติดต่อ',slot:'member',on:true}],
+    links:[{id:'l1',label:'ดีลดี',url:'https://deeldee.online',on:true},{id:'l2',label:'PrachinZone',url:'https://prachinzone.com',on:true},{id:'l3',label:'ดินดี — ประกาศบ้าน-ที่ดิน',url:'https://dindee.com',on:true},{id:'l4',label:'แลกลิงก์กับเรา',url:'mailto:kpjay2024@gmail.com',on:true}]};RAW.set('crtdb_ads',a)}return a},
+  saveAds(a){RAW.set('crtdb_ads',a)}
+};
+const safeUrl=u=>/^(https?:|mailto:)/i.test(String(u||'').trim())?String(u).trim():'#';
+/* ===== ตั้งค่าโฆษณา (แก้ตรงนี้แล้วอัปโหลดใหม่) =====
+   slot: 'home' = เหนือกราฟ · 'all' = ทุกที่ (สุ่มแสดง) · on:false = ปิดชั่วคราว */
+const ADS_CONFIG={
+  banners:[
+    {id:'a1',title:'ดีลดี — รวมดีลเครื่องใช้ไฟฟ้า & ไอทีจาก Shopee',desc:'ลดราคาทุกวัน เปรียบเทียบก่อนซื้อ',url:'https://deeldee.online',cta:'ดูดีล',slot:'all',on:true},
+    {id:'a2',title:'PrachinZone — ชุมชนคนปราจีนบุรี',desc:'พูดคุย ซื้อขาย ข่าวสารในพื้นที่',url:'https://prachinzone.com',cta:'เข้าชม',slot:'all',on:true},
+    {id:'a3',title:'ดินดี — ประกาศขายบ้าน-ที่ดินฟรี',desc:'7 จังหวัดภาคตะวันออก',url:'https://dindee.com',cta:'ดูประกาศ',slot:'all',on:true},
+  ],
+  links:[   // ลิงก์เว็บเพื่อนบ้าน (ท้ายหน้า)
+    {id:'l1',label:'ดีลดี',url:'https://deeldee.online',on:true},
+    {id:'l2',label:'PrachinZone',url:'https://prachinzone.com',on:true},
+    {id:'l3',label:'ดินดี — ประกาศบ้าน-ที่ดิน',url:'https://dindee.com',on:true},
+  ]};
+DB.ads=()=>({banners:[],links:[]});  // ปิดระบบโฆษณา
+let CUR={id:'local',name:'',role:'member'},SESS_MSG='';
+false&&(()=>{let s=null;try{s=JSON.parse(localStorage.getItem('crt_sess')||sessionStorage.getItem('crt_sess')||'null')}catch(e){}
+  if(!s)return;const u=DB.users().find(x=>x.id===s.uid);
+  if(!u||!(s.exp>Date.now())){RAW.del('crt_sess');SESS_MSG='เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่';return}
+  if(u.status!=='active'){RAW.del('crt_sess');SESS_MSG='บัญชีของคุณถูกระงับการใช้งาน กรุณาติดต่อผู้ดูแลระบบ';return}
+  CUR=u})();
+const MEM={},DEV_KEYS=['proxy','pref'];   // DEV_KEYS = ค่าระดับเครื่อง (URL GAS) เก็บถาวรเสมอ
+const uKey=k=>DEV_KEYS.includes(k)?'crt2_'+k:'crtu_'+CUR.id+'_'+k;
+const LS={get(k,d){if(!CUR&&!DEV_KEYS.includes(k))return k in MEM?MEM[k]:d;try{const v=localStorage.getItem(DEV_KEYS.includes(k)?'crt2_'+k:uKey(k));return v==null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){if(!CUR&&!DEV_KEYS.includes(k)){MEM[k]=v;return}try{localStorage.setItem(DEV_KEYS.includes(k)?'crt2_'+k:uKey(k),JSON.stringify(v))}catch(e){}}};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 const TH_REST='https://api.binance.th/api/v1';
@@ -2252,7 +2430,7 @@ function uiTick(){
   if(S.page==='debug'&&Date.now()%3000<1000){renderNet();renderStats()}
   updateStatus();
 }
-function showPage(p){S.page=p;$$('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.page===p));$$('.page').forEach(s=>s.classList.toggle('on',s.id==='page-'+p));
+function showPage(p){S.page=p;if(p==='member')renderMember();if(p==='admin')renderAdmin();$$('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.page===p));$$('.page').forEach(s=>s.classList.toggle('on',s.id==='page-'+p));
   if(p==='port')renderPort();if(p==='market'){S.spkUnread=0;renderMarket();renderSpikes()}if(p==='news'){NEWS.unread=0;updateNewsBadge();renderNews()}if(p==='alerts'){renderAlerts();updateAlNow()}if(p==='debug')renderDebug();if(p==='charts')S.panes.forEach(x=>x.chart.resize())}
 function openSym(s){showPage('charts');const p=S.panes[S.active]||S.panes[0];if(p&&p.sym!==s)p.setSym(s);else{renderSide();markWatchSel()}}
 function wire(){
@@ -2318,7 +2496,7 @@ function wire(){
   $('#btnCopyGas').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(GAS_CODE);toast('คัดลอกโค้ด GAS แล้ว','','ok')}catch(e){$('#gasCode').closest('details').open=true;$('#gasCode').select();toast('เลือกข้อความให้แล้ว กด Ctrl+C','','')}});
   $('#btnLogCopy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(S.logs.map(l=>`[${l.t.toISOString()}] ${l.lv} ${l.msg}`).join('\n'));toast('คัดลอก log แล้ว','','ok')}catch(e){toast('คัดลอกไม่ได้',e.message,'err')}});
   $('#btnLogClear').addEventListener('click',()=>{S.logs=[];renderLog()});
-  $('#btnReset').addEventListener('click',()=>{if(!confirm('ล้างการตั้งค่า จอกราฟ ผลสแกน และแจ้งเตือนทั้งหมด?'))return;try{Object.keys(localStorage).filter(k=>k.startsWith('crt2_')).forEach(k=>localStorage.removeItem(k))}catch(e){}location.reload()});
+  $('#btnReset').addEventListener('click',()=>{if(!confirm('ล้างการตั้งค่า จอกราฟ ผลสแกน และแจ้งเตือนทั้งหมด'+(CUR?'ของบัญชีนี้':'')+'?'))return;clearMine();location.reload()});
 }
 async function init(){
   wire();updateNotifUI();saveAlerts();log('info','เริ่มระบบ Crypto Radar TH v4');
@@ -2331,28 +2509,153 @@ async function init(){
   setTimeout(()=>{if(!S.scanning&&S.mode)runScan({auto:true,tf:'4h',n:40})},5000);
 }
 /* ---------- เข้าสู่ระบบ ---------- */
-const PW_HASH='f38732b070e60d8178d27a6cb4cb15088eab87779631aac01f1b021510e53391',PW_SALT='crt-salt-v1:';
-function sha256hex(str){ // ใช้ได้ทั้งเปิดไฟล์ในเครื่อง/http/https
-  const b=new TextEncoder().encode(str),K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
-  const l=b.length,n=((l+9+63)>>6)<<6,m=new Uint8Array(n);m.set(b);m[l]=0x80;const dv=new DataView(m.buffer);dv.setUint32(n-4,l*8>>>0);dv.setUint32(n-8,Math.floor(l/0x20000000));
-  let H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];const w=new Uint32Array(64),r=(x,k)=>(x>>>k)|(x<<(32-k));
-  for(let o=0;o<n;o+=64){for(let i=0;i<16;i++)w[i]=dv.getUint32(o+i*4);for(let i=16;i<64;i++){const s0=r(w[i-15],7)^r(w[i-15],18)^(w[i-15]>>>3),s1=r(w[i-2],17)^r(w[i-2],19)^(w[i-2]>>>10);w[i]=(w[i-16]+s0+w[i-7]+s1)>>>0}
-    let[a,b2,c,d,e,f,g,h]=H;for(let i=0;i<64;i++){const t1=(h+(r(e,6)^r(e,11)^r(e,25))+((e&f)^(~e&g))+K[i]+w[i])>>>0,t2=((r(a,2)^r(a,13)^r(a,22))+((a&b2)^(a&c)^(b2&c)))>>>0;h=g;g=f;f=e;e=(d+t1)>>>0;d=c;c=b2;b2=a;a=(t1+t2)>>>0}
-    H=H.map((x,i)=>(x+[a,b2,c,d,e,f,g,h][i])>>>0)}
-  return H.map(x=>x.toString(16).padStart(8,'0')).join('')}
-const authOK=()=>{try{return localStorage.getItem('crt2_auth')===PW_HASH||sessionStorage.getItem('crt2_auth')===PW_HASH}catch(e){return false}};
 let started=false;
-function unlock(){$('#login').classList.add('hide');document.body.classList.remove('locked');if(!started){started=true;init()}}
+function clearMine(){if(!CUR){for(const k in MEM)delete MEM[k];return}try{const p='crtu_'+CUR.id+'_';Object.keys(localStorage).filter(k=>k.startsWith(p)).forEach(k=>localStorage.removeItem(k))}catch(e){}}
+const fmtD=t=>t?new Date(t).toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'2-digit'}):'—';
+const agoU=t=>{if(!t)return 'ยังไม่เคย';const m=(Date.now()-t)/6e4;return m<1?'เมื่อสักครู่':m<60?Math.round(m)+' นาทีก่อน':m<1440?Math.round(m/60)+' ชม.ก่อน':Math.round(m/1440)+' วันก่อน'};
+const ini=n=>esc(String(n||'?').trim().charAt(0).toUpperCase()||'?');
+const emailOK=e=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e);
+/* ---- เข้าสู่ระบบ / สมัคร ---- */
+function openLogin(mode='in'){const L=$('#login');L.classList.remove('hide');setLgMode(mode);$('#loginErr').textContent='';setTimeout(()=>(mode==='reg'?$('#lgName'):$('#lgEmail')).focus(),60)}
+function setLgMode(m){const L=$('#login');L.classList.toggle('reg',m==='reg');L.dataset.m=m;$$('.lg-tabs button').forEach(b=>b.classList.toggle('on',b.dataset.lt===m));$('#lgBtn').textContent=m==='reg'?'สมัครสมาชิก':'เข้าสู่ระบบ';$('#loginPw').autocomplete=m==='reg'?'new-password':'current-password'}
+function startSession(u,rem){const all=DB.users(),x=all.find(y=>y.id===u.id);x.last=Date.now();x.logins=(x.logins||0)+1;DB.save(all);
+  const pre='crtu_'+u.id+'_';let empty=true;try{empty=!Object.keys(localStorage).some(k=>k.startsWith(pre))}catch(e){}
+  if(empty)for(const k in MEM)try{localStorage.setItem(pre+k,JSON.stringify(MEM[k]))}catch(e){}   // ย้ายสิ่งที่ทำตอนเป็นผู้เยี่ยมชมเข้าบัญชีใหม่
+  try{RAW.del('crt_sess');(rem?localStorage:sessionStorage).setItem('crt_sess',JSON.stringify({uid:u.id,exp:Date.now()+(rem?30:1)*864e5}));sessionStorage.setItem('crt_flash',JSON.stringify([`ยินดีต้อนรับ ${u.name}`,empty&&Object.keys(MEM).length?'ย้ายการตั้งค่าที่ทำไว้เข้าบัญชีให้แล้ว':'โหลดการตั้งค่าของคุณแล้ว']))}catch(e){}
+  location.reload()}
+function logout(){if(!confirm('ออกจากระบบ? (ข้อมูลของคุณยังเก็บไว้ในบัญชี)'))return;RAW.del('crt_sess');try{sessionStorage.setItem('crt_flash',JSON.stringify(['ออกจากระบบแล้ว','ตอนนี้เป็นโหมดผู้เยี่ยมชม — ไม่บันทึกข้อมูล']))}catch(e){}location.reload()}
+let fails=0,lockUntil=0;
+function submitLogin(e){e.preventDefault();const err=$('#loginErr'),box=$('.login-box'),m=$('#login').dataset.m||'in';
+  const bad=t=>{err.textContent=t;box.classList.remove('shake');void box.offsetWidth;box.classList.add('shake')};
+  if(Date.now()<lockUntil)return bad(`ลองผิดหลายครั้ง รออีก ${Math.ceil((lockUntil-Date.now())/1000)} วินาที`);
+  const email=$('#lgEmail').value.trim().toLowerCase(),pw=$('#loginPw').value;
+  if(!emailOK(email))return bad('รูปแบบอีเมลไม่ถูกต้อง');
+  if(m==='reg'){const name=$('#lgName').value.trim();
+    if(name.length<2)return bad('กรุณากรอกชื่อที่แสดง');if(pw.length<6)return bad('รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร');if(pw!==$('#lgPw2').value)return bad('ยืนยันรหัสผ่านไม่ตรงกัน');
+    const all=DB.users();if(all.some(x=>x.email===email))return bad('อีเมลนี้สมัครไว้แล้ว — ลองเข้าสู่ระบบ');
+    const u={id:'u_'+Date.now().toString(36),name,email,hash:uHash(email,pw),role:'member',status:'active',created:Date.now(),last:null,logins:0,note:''};all.push(u);DB.save(all);return startSession(u,true)}
+  const u=DB.users().find(x=>x.email===email);
+  if(!u||u.hash!==uHash(email,pw)){fails++;if(fails>=5){lockUntil=Date.now()+30000;fails=0}return bad('อีเมลหรือรหัสผ่านไม่ถูกต้อง')}
+  if(u.status!=='active')return bad('บัญชีนี้ถูกระงับการใช้งาน — ติดต่อผู้ดูแลระบบ');
+  startSession(u,$('#loginRem').checked)}
+/* ---- กล่องฟอร์มทั่วไป ---- */
+let MDL=null;
+function modal(title,body,onOk,okLabel='บันทึก'){MDL=onOk;$('#mdlT').textContent=title;$('#mdlB').innerHTML=body;$('#mdlErr').textContent='';$('#mdlOk').textContent=okLabel;$('#mdl').classList.remove('hidden');setTimeout(()=>$('#mdlB .inp')?.focus(),50)}
+const closeModal=()=>{$('#mdl').classList.add('hidden');MDL=null};
+const fvl=id=>($('#'+id)?.value??'').trim();
+/* ---- โฆษณา ---- */
+let adIdx=0,adHidden=false,adTimer=null;
+const adsFor=slot=>DB.ads().banners.filter(a=>a.on&&(a.slot==='all'||a.slot===slot));
+function tadInner(a,x){return `<span class="tg">โฆษณา</span><span class="tt"><b>${esc(a.title)}</b>${a.desc?` <i>— ${esc(a.desc)}</i>`:''}</span><span class="go">${esc(a.cta||'ดู')} ›</span>${x?'<button class="ad-x" data-adx title="ซ่อน">✕</button>':''}`}
+const pickAd=(l,cur)=>{if(l.length<2)return l[0];let a;do{a=l[Math.floor(Math.random()*l.length)]}while(a===cur);return a};
+let adCur=null;
+function adInner(a,dots){return `<span class="ad-tag">โฆษณา</span><span class="ad-ic">${esc(a.ic||'📢')}</span><span class="ad-tx"><b>${esc(a.title)}</b><span>${esc(a.desc||'')}</span></span>${dots||''}<span class="btn sm primary">${esc(a.cta||'ดูเพิ่มเติม')}</span><button class="ad-x" data-adx title="ซ่อนโฆษณา">✕</button>`}
+function renderAds(){const list=adsFor('home'),el=$('#adHome');
+  if(!list.length||adHidden){el.classList.add('hidden');$('#page-charts').classList.remove('has-ad')}
+  else{if(!list.includes(adCur)||adIdx!==renderAds.n){adCur=pickAd(list,list.includes(adCur)?adCur:null);renderAds.n=adIdx}const a=adCur;el.href=safeUrl(a.url);el.innerHTML=tadInner(a,true);el.classList.remove('tad-in');void el.offsetWidth;el.classList.add('tad-in');el.classList.remove('hidden');$('#page-charts').classList.add('has-ad')}
+  const L=DB.ads().links.filter(l=>l.on);$('#tlinks').innerHTML=L.length?`<span class="lb">เว็บเพื่อนบ้าน:</span>`+L.map(l=>`<a href="${esc(safeUrl(l.url))}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join(''):''}
+function adCards(slot){const l=adsFor(slot).sort(()=>Math.random()-.5).slice(0,3);return l.length?`<div class="tadbox">${l.map(a=>`<a class="tad" href="${esc(safeUrl(a.url))}" target="_blank" rel="noopener sponsored">${tadInner(a)}</a>`).join('')}</div>`:''}
+function adCardsOld(slot){const l=adsFor(slot);return l.length?`<div class="adcards">${l.map(a=>`<a class="adcard" href="${esc(safeUrl(a.url))}" target="_blank" rel="noopener sponsored"><span class="ad-ic">${esc(a.ic||'📢')}</span><span class="ad-tx"><span class="ad-tag" style="display:inline-block;margin-bottom:4px">โฆษณา</span><b>${esc(a.title)}</b><span>${esc(a.desc||'')}</span></span><span class="btn sm primary">${esc(a.cta||'ดู')}</span></a>`).join('')}</div>`:''}
+/* ---- หน้าสมาชิก ---- */
+function myStats(){const d=Object.values(S.draw||{}).reduce((n,a)=>n+(Array.isArray(a)?a.length:0),0);
+  return [['⭐',S.fav.size,'เหรียญโปรด'],['🔔',(S.alerts||[]).filter(a=>!a.done&&!a.hit).length||(S.alerts||[]).length,'แจ้งเตือนราคา'],['💼',(S.port||[]).length,'รายการในพอร์ต'],['✏️',d,'เส้นที่วาดบนกราฟ'],['🖥',S.layout+' จอ','รูปแบบกราฟ'],['🎨',S.theme==='light'?'สว่าง':'มืด','ธีม']]}
+function renderMember(){const b=$('#mbBody'),ta=pickAd(adsFor('member'));const top=ta?`<div class="toprow"><a class="tad tad-in" href="${esc(safeUrl(ta.url))}" target="_blank" rel="noopener sponsored">${tadInner(ta)}</a></div>`:'';
+  const stats=`<div class="mb-stats">${myStats().map(([i,v,l])=>`<div class="mb-stat"><b>${i} ${esc(v)}</b><span>${l}</span></div>`).join('')}</div>`;
+  if(!CUR){b.innerHTML=top+`<div class="mb-wrap"><div class="card pad"><div class="mb-hero"><span class="av">👤</span><div><h2>ผู้เยี่ยมชม <span class="mb-badge">ไม่บันทึกข้อมูล</span></h2><div class="muted" style="font-size:13px;margin-top:4px">ใช้งานได้ทุกฟีเจอร์ แต่ทุกอย่างจะหายเมื่อปิดหรือรีเฟรชหน้าเว็บ</div></div></div>
+    <h3 style="margin-top:18px">สมัครสมาชิกฟรี แล้วระบบจะจำให้</h3><ul class="mb-ben"><li>พอร์ตการเทรด ราคาทุน และกำไร/ขาดทุน</li><li>แจ้งเตือนราคา และเกณฑ์แจ้งเตือนเหรียญดีด</li><li>เหรียญโปรด ⭐ และเส้นที่วาดบนกราฟ</li><li>รูปแบบจอ กรอบเวลา ธีม และน้ำหนักคะแนน</li><li>สิ่งที่ทำไว้ตอนนี้ย้ายเข้าบัญชีให้อัตโนมัติ</li></ul>
+    <div class="mb-act"><button class="btn primary" data-login="reg">สมัครสมาชิกฟรี</button><button class="btn" data-login="in">เข้าสู่ระบบ</button></div>
+    <h3 style="margin-top:18px">ที่ใช้อยู่ตอนนี้ (ชั่วคราว)</h3>${stats}</div></div>`;return}
+  const adm=CUR.role==='admin';
+  b.innerHTML=top+`<div class="mb-wrap"><div class="card pad"><div class="mb-hero"><span class="av">${ini(CUR.name)}</span><div style="min-width:0"><h2>${esc(CUR.name)} <span class="mb-badge ${adm?'adm':'ok'}">${adm?'🛡 แอดมิน':'สมาชิก'}</span></h2>
+      <div class="muted" style="font-size:13px;margin-top:4px;overflow-wrap:anywhere">${esc(CUR.email)} · สมัครเมื่อ ${fmtD(CUR.created)} · เข้าใช้ ${CUR.logins||1} ครั้ง</div></div></div>
+    <h3 style="margin-top:18px">ข้อมูลที่บันทึกในบัญชี <small>บันทึกอัตโนมัติทุกครั้งที่เปลี่ยน</small></h3>${stats}
+    <div class="mb-act"><button class="btn" data-mb="name">✏️ แก้ไขชื่อ</button><button class="btn" data-mb="pw">🔑 เปลี่ยนรหัสผ่าน</button><button class="btn" data-mb="exp">⬇️ สำรองข้อมูล</button><button class="btn" data-mb="imp">⬆️ นำเข้าข้อมูล</button>${adm?'<button class="btn primary" data-mb="admin">🛡 จัดการระบบ</button>':''}<button class="btn down" data-mb="out">⎋ ออกจากระบบ</button></div>
+    <p class="dim" style="font-size:12px;margin:14px 0 0">🧪 เดโม่: ข้อมูลเก็บในเบราว์เซอร์นี้ · เวอร์ชันจริงจะเก็บใน Google Sheets ผ่าน GAS ใช้ได้ทุกเครื่อง</p></div></div>`}
+function memberAct(k){
+  if(k==='out')return logout();if(k==='admin')return showPage('admin');
+  if(k==='name')return modal('แก้ไขชื่อที่แสดง',`<label class="fld">ชื่อ<input class="inp" id="fName" maxlength="40" value="${esc(CUR.name)}"></label>`,()=>{const n=fvl('fName');if(n.length<2)return 'กรุณากรอกชื่อ';updUser(CUR.id,{name:n});CUR.name=n;userUI();renderMember();toast('บันทึกชื่อแล้ว','','ok')});
+  if(k==='pw')return modal('เปลี่ยนรหัสผ่าน',`<label class="fld">รหัสผ่านเดิม<input class="inp" type="password" id="fP0"></label><label class="fld">รหัสผ่านใหม่<input class="inp" type="password" id="fP1" placeholder="อย่างน้อย 6 ตัวอักษร"></label><label class="fld">ยืนยันรหัสผ่านใหม่<input class="inp" type="password" id="fP2"></label>`,
+    ()=>{const u=DB.users().find(x=>x.id===CUR.id);if(u.hash!==uHash(u.email,$('#fP0').value))return 'รหัสผ่านเดิมไม่ถูกต้อง';const p=$('#fP1').value;if(p.length<6)return 'รหัสผ่านใหม่ต้องมีอย่างน้อย 6 ตัวอักษร';if(p!==$('#fP2').value)return 'ยืนยันรหัสผ่านไม่ตรงกัน';updUser(CUR.id,{hash:uHash(u.email,p)});toast('เปลี่ยนรหัสผ่านแล้ว','','ok')});
+  if(k==='exp'){const o={};try{const p='crtu_'+CUR.id+'_';Object.keys(localStorage).filter(x=>x.startsWith(p)).forEach(x=>o[x.slice(p.length)]=JSON.parse(localStorage.getItem(x)))}catch(e){}
+    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'crypto-radar-th',v:16,at:new Date().toISOString(),data:o},null,1)],{type:'application/json'}));a.download='crypto-radar-backup.json';a.click();return toast('ดาวน์โหลดไฟล์สำรองแล้ว','','ok')}
+  if(k==='imp'){const i=document.createElement('input');i.type='file';i.accept='.json,application/json';i.onchange=async()=>{try{const j=JSON.parse(await i.files[0].text());if(!j.data)throw 0;if(!confirm('นำเข้าข้อมูลจะทับการตั้งค่าปัจจุบัน ดำเนินการต่อ?'))return;for(const x in j.data)LS.set(x,j.data[x]);location.reload()}catch(e){toast('ไฟล์ไม่ถูกต้อง','','err')}};i.click()}}
+/* ---- หน้าแอดมิน ---- */
+const ADM={q:'',f:''};
+function updUser(id,patch){const all=DB.users(),u=all.find(x=>x.id===id);if(!u)return;Object.assign(u,patch);DB.save(all);return u}
+function renderAdmin(){const b=$('#admBody');
+  if(!CUR||CUR.role!=='admin'){b.innerHTML=`<div class="card pad" style="text-align:center;padding:40px 16px"><div style="font-size:40px">🛡</div><h3>เฉพาะผู้ดูแลระบบ</h3><p class="muted">กรุณาเข้าสู่ระบบด้วยบัญชีแอดมิน</p><button class="btn primary" data-login="in">เข้าสู่ระบบ</button></div>`;return}
+  const U=DB.users(),A=DB.ads(),act=U.filter(u=>u.status==='active').length,wk=U.filter(u=>u.last&&Date.now()-u.last<7*864e5).length;
+  const q=ADM.q.toLowerCase(),list=U.filter(u=>(!q||(u.name+' '+u.email).toLowerCase().includes(q))&&(!ADM.f||(ADM.f==='admin'?u.role==='admin':u.status===ADM.f))).sort((a,b)=>(b.created||0)-(a.created||0));
+  const ta=pickAd(adsFor('member'));b.innerHTML=(ta?`<a class="tad" href="${esc(safeUrl(ta.url))}" target="_blank" rel="noopener sponsored">${tadInner(ta)}</a>`:'')+`<div class="adm-top">${[['👥',U.length,'สมาชิกทั้งหมด'],['✅',act,'ใช้งานได้'],['⛔',U.length-act,'ถูกระงับ'],['🔥',wk,'เข้าใช้ใน 7 วัน']].map(([i,v,l])=>`<div class="mb-stat"><b>${i} ${v}</b><span>${l}</span></div>`).join('')}</div>
+  <div class="adm-wrap"><div class="card pad"><h3>จัดการสมาชิก <small>${list.length} รายการ</small></h3>
+    <div class="adm-tools"><input class="inp" id="admQ" placeholder="🔍 ค้นหาชื่อหรืออีเมล" value="${esc(ADM.q)}"><select class="inp" id="admF" style="width:auto"><option value="">ทั้งหมด</option><option value="active">ใช้งานได้</option><option value="suspended">ถูกระงับ</option><option value="admin">แอดมิน</option></select><button class="btn primary" data-ua="add">＋ เพิ่มสมาชิก</button></div>
+    <div class="u-list">${list.map(u=>{const me=u.id===CUR.id,off=u.status!=='active';return `<div class="u-row ${off?'off':''}"><div class="who"><span class="av">${ini(u.name)}</span><div><b>${esc(u.name)}${me?' <small style="display:inline">(คุณ)</small>':''}</b><small>${esc(u.email)}</small></div></div>
+      <div class="c-role"><span class="mb-badge ${u.role==='admin'?'adm':''}" style="margin:0">${u.role==='admin'?'🛡 แอดมิน':'สมาชิก'}</span><br><span class="mb-badge ${off?'off':'ok'}" style="margin:4px 0 0">${off?'⛔ ระงับ':'● ใช้งาน'}</span></div>
+      <div class="c-time"><small>สมัคร ${fmtD(u.created)}</small><br><small>ล่าสุด ${agoU(u.last)}</small>${u.note?`<br><small title="${esc(u.note)}">📝 ${esc(u.note)}</small>`:''}</div>
+      <div class="acts"><button class="btn sm" data-ua="edit" data-id="${u.id}">✏️ แก้ไข</button>${me?'':`<button class="btn sm ${off?'up':''}" data-ua="sus" data-id="${u.id}">${off?'✅ เปิดใช้':'⛔ ระงับ'}</button><button class="btn sm down" data-ua="del" data-id="${u.id}">🗑 ลบ</button>`}</div></div>`}).join('')||'<p class="dim" style="text-align:center">ไม่พบสมาชิก</p>'}</div></div>
+  <div style="display:grid;gap:12px"><div class="card pad"><h3>Text Ads <small>สุ่มแสดงแบบกลมกลืน</small><button class="btn sm primary" data-aa="addB" style="float:right">＋ เพิ่ม</button></h3><div class="ad-list">${A.banners.map(a=>`<div class="a-row ${a.on?'':'off'}"><button type="button" class="sw ${a.on?'on':''}" data-aa="togB" data-id="${a.id}" title="เปิด/ปิด"></button><span class="ad-tx"><b>${esc(a.ic)} ${esc(a.title)}</b><span>${{all:'ทุกหน้า',home:'หน้าแรก (เหนือกราฟ)',member:'หน้าสมาชิก/แอดมิน'}[a.slot]||a.slot} · ${esc(a.url)}</span></span><span style="display:flex;gap:4px"><button class="btn sm" data-aa="editB" data-id="${a.id}">✏️</button><button class="btn sm down" data-aa="delB" data-id="${a.id}">🗑</button></span></div>`).join('')||'<p class="dim">ยังไม่มีป้ายโฆษณา</p>'}</div></div>
+    <div class="card pad"><h3>ลิงก์เพื่อนบ้าน <small>Text Ads ท้ายหน้า</small><button class="btn sm primary" data-aa="addL" style="float:right">＋ เพิ่ม</button></h3><div class="ad-list">${A.links.map(l=>`<div class="a-row ${l.on?'':'off'}"><button type="button" class="sw ${l.on?'on':''}" data-aa="togL" data-id="${l.id}"></button><span class="ad-tx"><b>${esc(l.label)}</b><span>${esc(l.url)}</span></span><span style="display:flex;gap:4px"><button class="btn sm" data-aa="editL" data-id="${l.id}">✏️</button><button class="btn sm down" data-aa="delL" data-id="${l.id}">🗑</button></span></div>`).join('')||'<p class="dim">ยังไม่มีลิงก์</p>'}</div></div></div></div>`;
+  $('#admF').value=ADM.f}
+function userForm(u){return `<div class="row2"><label class="fld">ชื่อที่แสดง<input class="inp" id="fName" maxlength="40" value="${esc(u?.name||'')}"></label><label class="fld">อีเมล<input class="inp" id="fEmail" type="email" value="${esc(u?.email||'')}"></label></div>
+  <div class="row2"><label class="fld">สิทธิ์<select class="inp" id="fRole"><option value="member">สมาชิก</option><option value="admin">🛡 แอดมิน</option></select></label><label class="fld">สถานะ<select class="inp" id="fStatus"><option value="active">● ใช้งานได้</option><option value="suspended">⛔ ระงับ</option></select></label></div>
+  <label class="fld">${u?'ตั้งรหัสผ่านใหม่ (เว้นว่าง = ใช้รหัสเดิม)':'รหัสผ่าน'}<input class="inp" id="fPw" type="text" placeholder="อย่างน้อย 6 ตัวอักษร" autocomplete="off"></label>
+  <label class="fld">หมายเหตุ (เห็นเฉพาะแอดมิน)<input class="inp" id="fNote" maxlength="80" value="${esc(u?.note||'')}"></label>`}
+function userAct(k,id){const U=DB.users(),u=U.find(x=>x.id===id);
+  if(k==='add'||k==='edit'){modal(u?'แก้ไขสมาชิก':'เพิ่มสมาชิก',userForm(u),()=>{const name=fvl('fName'),email=fvl('fEmail').toLowerCase(),pw=$('#fPw').value,role=fvl('fRole'),status=fvl('fStatus');
+      if(name.length<2)return 'กรุณากรอกชื่อ';if(!emailOK(email))return 'อีเมลไม่ถูกต้อง';if(DB.users().some(x=>x.email===email&&x.id!==id))return 'อีเมลนี้มีในระบบแล้ว';
+      if(!u&&pw.length<6||u&&pw&&pw.length<6)return 'รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร';
+      if(u&&u.id===CUR.id&&(role!=='admin'||status!=='active'))return 'ไม่สามารถลดสิทธิ์หรือระงับบัญชีของตัวเองได้';
+      if(u){const p={name,email,role,status,note:fvl('fNote')};if(pw||email!==u.email){if(!pw)return 'เปลี่ยนอีเมลต้องตั้งรหัสผ่านใหม่ด้วย';p.hash=uHash(email,pw)}updUser(id,p);if(id===CUR.id)Object.assign(CUR,p)}
+      else{const all=DB.users();all.push({id:'u_'+Date.now().toString(36),name,email,hash:uHash(email,pw),role,status,created:Date.now(),last:null,logins:0,note:fvl('fNote')});DB.save(all)}
+      renderAdmin();userUI();toast(u?'บันทึกการแก้ไขแล้ว':'เพิ่มสมาชิกแล้ว',name,'ok')});
+    if(u){$('#fRole').value=u.role;$('#fStatus').value=u.status}return}
+  if(!u||u.id===CUR.id)return;
+  if(k==='sus'){const off=u.status!=='active';if(!confirm(off?`เปิดใช้งานบัญชี ${u.name}?`:`ระงับการใช้งาน ${u.name}?\nสมาชิกจะเข้าสู่ระบบไม่ได้จนกว่าจะเปิดใหม่`))return;updUser(id,{status:off?'active':'suspended'});toast(off?'เปิดใช้งานแล้ว':'ระงับการใช้งานแล้ว',u.name,off?'ok':'');renderAdmin()}
+  if(k==='del'){if(!confirm(`ลบสมาชิก ${u.name} (${u.email})?\nข้อมูลพอร์ตและการตั้งค่าของสมาชิกนี้จะถูกลบด้วย — ย้อนกลับไม่ได้`))return;DB.save(U.filter(x=>x.id!==id));try{Object.keys(localStorage).filter(x=>x.startsWith('crtu_'+id+'_')).forEach(x=>localStorage.removeItem(x))}catch(e){}toast('ลบสมาชิกแล้ว',u.name);renderAdmin()}}
+function adAct(k,id){const A=DB.ads(),isB=k.endsWith('B'),arr=isB?A.banners:A.links,it=arr.find(x=>x.id===id),op=k.slice(0,-1);
+  const done=()=>{DB.saveAds(A);renderAdmin();renderAds()};
+  if(op==='tog'){it.on=!it.on;return done()}
+  if(op==='del'){if(confirm('ลบรายการนี้?')){arr.splice(arr.indexOf(it),1);done()}return}
+  if(isB){modal(it?'แก้ไขป้ายโฆษณา':'เพิ่มป้ายโฆษณา',`<div class="row2" style="grid-template-columns:80px 1fr"><label class="fld">ไอคอน<input class="inp" id="aIc" maxlength="4" value="${esc(it?.ic||'📢')}"></label><label class="fld">หัวข้อ<input class="inp" id="aTi" maxlength="70" value="${esc(it?.title||'')}"></label></div>
+      <label class="fld">คำอธิบาย<input class="inp" id="aDe" maxlength="90" value="${esc(it?.desc||'')}"></label><label class="fld">ลิงก์ปลายทาง<input class="inp" id="aUr" placeholder="https://..." value="${esc(it?.url||'')}"></label>
+      <div class="row2"><label class="fld">ข้อความปุ่ม<input class="inp" id="aCt" maxlength="16" value="${esc(it?.cta||'ดูเพิ่มเติม')}"></label><label class="fld">แสดงที่<select class="inp" id="aSl"><option value="all">ทุกหน้า</option><option value="home">หน้าแรก</option><option value="member">หน้าสมาชิก/แอดมิน</option></select></label></div>`,
+      ()=>{const o={ic:fvl('aIc')||'📢',title:fvl('aTi'),desc:fvl('aDe'),url:fvl('aUr'),cta:fvl('aCt')||'ดูเพิ่มเติม',slot:fvl('aSl')};if(!o.title)return 'กรุณากรอกหัวข้อ';if(safeUrl(o.url)==='#')return 'ลิงก์ต้องขึ้นต้นด้วย https:// หรือ mailto:';
+        if(it)Object.assign(it,o);else arr.push({id:'a'+Date.now().toString(36),on:true,...o});done();toast('บันทึกโฆษณาแล้ว','','ok')});$('#aSl').value=it?.slot||'all';return}
+  modal(it?'แก้ไขลิงก์เพื่อนบ้าน':'เพิ่มลิงก์เพื่อนบ้าน',`<label class="fld">ข้อความลิงก์<input class="inp" id="lLb" maxlength="40" value="${esc(it?.label||'')}"></label><label class="fld">ลิงก์<input class="inp" id="lUr" placeholder="https://..." value="${esc(it?.url||'')}"></label>`,
+    ()=>{const o={label:fvl('lLb'),url:fvl('lUr')};if(!o.label)return 'กรุณากรอกข้อความ';if(safeUrl(o.url)==='#')return 'ลิงก์ต้องขึ้นต้นด้วย https:// หรือ mailto:';if(it)Object.assign(it,o);else arr.push({id:'l'+Date.now().toString(36),on:true,...o});done();toast('บันทึกลิงก์แล้ว','','ok')})}
+/* ---- ผูกปุ่ม ---- */
+/* ---- สถิติผู้เข้าชม (เดโม่: จำลอง · ของจริง: GAS นับ heartbeat ทุก 60 วิ) ---- */
+const VS={on:0,today:0,total:0};
+function vsInit(){const d=new Date().toDateString(),k=RAW.get('crt_vs',{});if(k.d!==d){k.d=d;k.today=0}
+  k.today=(k.today||0)+1;k.total=(k.total||0)+1;RAW.set('crt_vs',k);
+  const h=new Date().getHours(),wave=0.55+0.45*Math.sin((h-9)/24*2*Math.PI);
+  VS.on=Math.round(18+40*wave);VS.today=820+Math.round(h*61)+k.today;VS.total=152400+k.total;vsRender();
+  setInterval(()=>{VS.on=Math.max(5,VS.on+Math.round((Math.random()-.5)*6));if(Math.random()<.4){VS.today++;VS.total++}vsRender()},5000)}
+function vsRender(){const n=v=>v.toLocaleString('th-TH');$('#vstat').innerHTML=`<span class="on"><i></i>ออนไลน์ <b>${n(VS.on)}</b> คน</span><span>👁 วันนี้ <b>${n(VS.today)}</b></span><span>รวม <b>${n(VS.total)}</b> ครั้ง</span>`}
+function userUI(){const b=$('#btnUser');b.classList.toggle('adm',CUR?.role==='admin');b.querySelector('.av').innerHTML=CUR?ini(CUR.name):'👤';b.querySelector('.nm').textContent=CUR?CUR.name:'เข้าสู่ระบบ';b.title=CUR?CUR.email:'เข้าสู่ระบบ / สมัครสมาชิก'}
 function gate(){
-  $('#btnLogout').addEventListener('click',()=>{if(!confirm('ออกจากระบบ?'))return;try{localStorage.removeItem('crt2_auth');sessionStorage.removeItem('crt2_auth')}catch(e){}location.reload()});
+  userUI();
+  $('#btnUser').addEventListener('click',()=>CUR?showPage('member'):openLogin('in'));
+  document.addEventListener('click',e=>{const t=e.target.closest('[data-login],[data-mb],[data-ua],[data-aa],[data-adx],[data-mx]');if(!t)return;
+    if(t.dataset.adx!=null){e.preventDefault();e.stopPropagation();adHidden=true;renderAds();return}
+    if(t.dataset.mx!=null)return closeModal();
+    if(t.dataset.login){e.preventDefault();return openLogin(t.dataset.login)}if(t.dataset.mb)return memberAct(t.dataset.mb);
+    if(t.dataset.ua)return userAct(t.dataset.ua,t.dataset.id);if(t.dataset.aa)return adAct(t.dataset.aa,t.dataset.id)});
+  document.addEventListener('input',e=>{if(e.target.id==='admQ'){ADM.q=e.target.value;const p=e.target.selectionStart;renderAdmin();const i=$('#admQ');i.focus();i.setSelectionRange(p,p)}});
+  document.addEventListener('change',e=>{if(e.target.id==='admF'){ADM.f=e.target.value;renderAdmin()}});
+  $('#mdlForm').addEventListener('submit',e=>{e.preventDefault();if(!MDL)return;const r=MDL();if(r){$('#mdlErr').textContent=r;return}closeModal()});
+  $('#loginX').addEventListener('click',()=>$('#login').classList.add('hide'));
+  $('#login').addEventListener('click',e=>{if(e.target.id==='login')$('#login').classList.add('hide')});
+  $$('.lg-tabs button').forEach(b=>b.addEventListener('click',()=>{setLgMode(b.dataset.lt);$('#loginErr').textContent=''}));
   $('#pwEye').addEventListener('click',()=>{const i=$('#loginPw');i.type=i.type==='password'?'text':'password'});
-  let fails=0,lockUntil=0;
-  $('#loginForm').addEventListener('submit',e=>{e.preventDefault();const box=$('.login-box'),err=$('#loginErr');
-    if(Date.now()<lockUntil){err.textContent=`ลองผิดหลายครั้ง รออีก ${Math.ceil((lockUntil-Date.now())/1000)} วินาที`;return}
-    const v=$('#loginPw').value.trim();
-    if(sha256hex(PW_SALT+v)===PW_HASH){try{($('#loginRem').checked?localStorage:sessionStorage).setItem('crt2_auth',PW_HASH)}catch(e){}err.textContent='';$('#loginPw').value='';unlock()}
-    else{fails++;if(fails>=5){lockUntil=Date.now()+30000;fails=0}err.textContent='รหัสผ่านไม่ถูกต้อง';box.classList.remove('shake');void box.offsetWidth;box.classList.add('shake');$('#loginPw').select()}});
-  if(authOK())unlock();else{document.body.classList.add('locked');setTimeout(()=>$('#loginPw').focus(),100)}
+  $('#loginForm').addEventListener('submit',submitLogin);
+  addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();$('#login').classList.add('hide')}});
+  if(!CUR)$('#bnGuest').classList.remove('hidden');
+  $('#bnGuestX').addEventListener('click',()=>$('#bnGuest').classList.add('hidden'));
+  renderAds();adTimer=setInterval(()=>{if(document.hidden)return;if(S.page==='charts'&&!adHidden){adIdx++;renderAds()}const m=$('#mbBody .tad');if(S.page==='member'&&m){const a=pickAd(adsFor('member'));if(a){m.href=safeUrl(a.url);m.innerHTML=tadInner(a);m.classList.remove('tad-in');void m.offsetWidth;m.classList.add('tad-in')}}},9000);
+  started=true;init();
+  try{const f=JSON.parse(sessionStorage.getItem('crt_flash')||'null');sessionStorage.removeItem('crt_flash');if(f)setTimeout(()=>toast(f[0],f[1],'ok'),400)}catch(e){}
+  if(SESS_MSG)setTimeout(()=>{toast(SESS_MSG,'','err');openLogin('in')},500);
 }
 applyTheme(S.theme);
 gate();
